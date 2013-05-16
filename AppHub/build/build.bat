@@ -1,7 +1,5 @@
 @echo off
-cd ..
-mvn package -Dmaven.test.skip=true 
-cmd
+call mvn-build.bat
 pause
 
 rem telnet 192.168.3.193 8080
@@ -22,3 +20,29 @@ rem git push origin master
 
 rem git remote add origin git@github.com:yggsoft/AppHub.git
 rem git push -u origin master
+
+rem ------------------Home page------------------
+rem git clone git@github.com:yggsoft/angelo.github.com.git
+rem cd angelo.github.com
+
+goto comments
+	Create a new repository on the command line
+	touch README.md
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://github.com/yggsoft/angelo.github.com.git
+	git push -u origin master
+:comments
+
+goto comments
+	Create a new repository on the command line
+	touch README.md
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://github.com/yggsoft/angelo.github.com.git
+	git push -u origin master
+:comments
+
+cmd
