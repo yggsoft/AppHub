@@ -1,31 +1,37 @@
 package com.app.hub;
 
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.util.List;
 
 import org.junit.After;
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 public class FileManagerTest {
-	private static final String TEST_DATA_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata";
+	private static final String TEST_DATA_DIR = getPath("testdata");
 
 	//
-	private static final String TEST_DATA_TEMPLATE1_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testDataTemplate";
-	private static final String TEST_DATA_TEMPLATE2_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testDataTemplate2";
-	private static final String TEST_DATA_TEMPLATE3_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testDataTemplate3";
-	private static final String TEST_DATA_TEMPLATE4_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testDataTemplate4";
+	private static final String TEST_DATA_TEMPLATE1_DIR = getPath("testDataTemplate");
+	private static final String TEST_DATA_TEMPLATE2_DIR = getPath("testDataTemplate2");
+	private static final String TEST_DATA_TEMPLATE3_DIR = getPath("testDataTemplate3");
+	private static final String TEST_DATA_TEMPLATE4_DIR = getPath("testDataTemplate4");
 
-	private static final String SRC_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\src";
-	private static final String DEST_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\dest";
-	private static final String SRC_FILE = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\srcFile.txt";
-	private static final String DEST_FILE = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\destFile.txt";
+	private static final String SRC_DIR = getPath("testdata\\src");
+	private static final String DEST_DIR = getPath("testdata\\dest");
+	private static final String SRC_FILE = getPath("testdata\\srcFile.txt");
+	private static final String DEST_FILE = getPath("testdata\\destFile.txt");
 	
 	public static void main(String[] args) {
 		new FileManagerTest().init(TEST_DATA_TEMPLATE1_DIR);
+	}
+	
+	private static String getPath(String relativePath){
+		return Thread.currentThread().getContextClassLoader().getResource(relativePath).toString();
 	}
 
 	@Before
