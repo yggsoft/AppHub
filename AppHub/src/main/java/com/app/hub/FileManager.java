@@ -16,6 +16,8 @@ public class FileManager {
 	private final static String SOURCE_IS_FILE = "Source directory is a file";
 	private final static String DEST_IS_FILE = "Destination directory is a file";
 
+	private FileSynchronizationHander hander;
+
 	public FileManager(String source, String destination) throws NoDirException {
 		this(new File(source), new File(destination));
 	}
@@ -53,13 +55,12 @@ public class FileManager {
 		Dir srcDir = new Dir(this.sourceFile);
 		Dir destDir = new Dir(this.destFile);
 
-		FileSynchronizationHander hander = new FileSynchronizationHander(
+		hander = new FileSynchronizationHander(
 				srcDir, destDir);
 		hander.synchronize();
 	}
 
 	public List<File> synchronizedFile() {
-		// TODO Auto-generated method stub
-		return null;
+		return hander.synchronizedFiles();
 	}
 }

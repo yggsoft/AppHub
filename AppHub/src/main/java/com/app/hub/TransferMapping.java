@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,15 +16,34 @@ public class TransferMapping {
 
 	private Dir srcDir;
 	private Dir destDir;
-	private Map<File, File> map;
+	private Map<File, File> filesMap;
+	private Map<File, File> dirsMap;
+	private List<File> synchronizedFiles;
+	private List<File> failureFiles;
 
 	public TransferMapping(Dir srcDir, Dir destDir) {
 		this.srcDir = srcDir;
 		this.destDir = destDir;
-		this.map = mapping(srcDir, destDir);
+		this.filesMap = filesMapping(srcDir, destDir);
+		this.dirsMap = dirsMapping(srcDir, destDir);
+		this.synchronizedFiles = new ArrayList<File>();
+		this.failureFiles = new ArrayList<File>();
 	}
 
-	private Map<File, File> mapping(Dir srcDir, Dir destDir) {
+	private Map<File, File> dirsMapping(Dir srcDir2, Dir destDir2) {
+		Map<File, File> map = new HashMap<File, File>();
+		List<File> srcFiles = srcDir.getEmptyDIRs();
+		for (File sf : srcFiles) {
+			File targetFile = target(sf);
+			if(!targetFile.exists()){
+				map.put(sf, targetFile);
+				continue;
+			}
+		}
+		return map;
+	}
+
+	private Map<File, File> filesMapping(Dir srcDir, Dir destDir) {
 		Map<File, File> map = new HashMap<File, File>();
 		List<File> srcFiles = srcDir.getAllFiles();
 		for (File sf : srcFiles) {
@@ -61,17 +81,33 @@ public class TransferMapping {
 	}
 
 	public void copy() {
-		for (Map.Entry<File, File> entry : map.entrySet()) {
-			copy(entry.getKey(), entry.getValue());
+		copyFiles();
+		copyDirs();
+	}
+
+	private void copyDirs() {
+		for (Map.Entry<File, File> entry : dirsMap.entrySet()) {
+			entry.getValue().mkdir();
+		}
+	}
+
+	private void copyFiles() {
+		for (Map.Entry<File, File> entry : filesMap.entrySet()) {
+			if(copy(entry.getKey(), entry.getValue())){
+				synchronizedFiles.add(entry.getKey());
+			}else{
+				failureFiles.add(entry.getKey());
+			}
 		}
 	}
 	
-	private void copy(File from, File to) {
+	private boolean copy(File from, File to) {
 		File toFileDir = to.getParentFile();
 		if(!toFileDir.exists()){
 			toFileDir.mkdirs();
 		}
 		
+		boolean success = true;
 		InputStream is = null;
 		OutputStream os = null;
 		byte[] bytes = new byte[1024];
@@ -85,12 +121,16 @@ public class TransferMapping {
 		} catch (FileNotFoundException e) {
 			close(is, os);
 			e.printStackTrace();
+			success = false;
+			
 		} catch (IOException e) {
 			close(is, os);
 			e.printStackTrace();
+			success = false;
 		}finally{
 			close(is, os);
 		}
+		return success;
 	}
 	
 	private void close(InputStream is, OutputStream os) {
@@ -109,5 +149,9 @@ public class TransferMapping {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public List<File> synchronizedFiles() {
+		return synchronizedFiles;
 	}
 }

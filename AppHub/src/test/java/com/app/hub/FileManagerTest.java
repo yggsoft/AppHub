@@ -23,6 +23,10 @@ public class FileManagerTest {
 	private static final String DEST_DIR = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\dest";
 	private static final String SRC_FILE = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\srcFile.txt";
 	private static final String DEST_FILE = "D:\\git\\AppHub\\AppHub\\src\\test\\resource\\testdata\\destFile.txt";
+	
+	public static void main(String[] args) {
+		new FileManagerTest().init(TEST_DATA_TEMPLATE1_DIR);
+	}
 
 	@Before
 	public void setUp() throws Exception {
