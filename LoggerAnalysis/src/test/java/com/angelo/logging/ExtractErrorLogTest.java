@@ -7,6 +7,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.angelo.logging.ExtractErrorLog;
+
 public class ExtractErrorLogTest {
 
 	@Test

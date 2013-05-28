@@ -17,13 +17,29 @@ import java.util.regex.Pattern;
 public class ExtractErrorLog {
 	private File inDir;
 	private File outDir;
-	private static final int ROW_Volatility = 20;
+	private static final int ROW_VOLATILITY = 20;
 	private static final String HEADER = "=========================Begin=============================";
 	private static final String FOOTER = "===========================End=============================";
 	private static final String LINE   = "-----------------------------------------------------------";
 	
-	private static final String LINE_SEPRATOR = System
-			.getProperty("line.separator");
+	private static final String LINE_SEPRATOR = System.getProperty("line.separator");
+	
+	private static final String[] IGNORE_REGEXS = new String[]{
+			".*Error: org.apache.tapestry5.corelib.components.Error.*",
+			".*Errors: org.apache.tapestry5.corelib.components.Errors.*",
+			".*ExceptionReport: com.singulex.cvmedhome.presentation.pages.ExceptionReport.*",
+			".*ExceptionDisplay: org.apache.tapestry5.corelib.components.ExceptionDisplay.*",
+			".*ExceptionAnalyzer: DEFINED.*",
+			".*ExceptionTracker: DEFINED.*",
+			".*RequestExceptionHandler: DEFINED.*"
+	};
+	
+	private static final String[] BEGINNING_REGEXS = new String[]{
+		".*exception.*",
+		".*error.*",
+	};
+	
+	
 
 	public void execute() throws IOException {
 		File[] files = this.inDir.listFiles();
@@ -72,7 +88,7 @@ public class ExtractErrorLog {
 
 	private void readAndWrite(BufferedReader bfReader, BufferedWriter bfWriter) {
 		StringBuffer errorFragment = new StringBuffer();
-		RowCache rowCache = new RowCache(ROW_Volatility);
+		RowCache rowCache = new RowCache(ROW_VOLATILITY);
 		boolean begin = false;
 		boolean fragmentCompleted = false;
 		int count = 1;
@@ -174,34 +190,26 @@ public class ExtractErrorLog {
 //		Matcher matcher = pattern.matcher(input);
 //		return matcher.find();
 		
-		String[] ignoreRegexs = new String[]{
-				".*Error: org.apache.tapestry5.corelib.components.Error.*",
-				".*Errors: org.apache.tapestry5.corelib.components.Errors.*",
-				".*ExceptionReport: com.singulex.cvmedhome.presentation.pages.ExceptionReport.*",
-				".*ExceptionDisplay: org.apache.tapestry5.corelib.components.ExceptionDisplay.*",
-				".*ExceptionAnalyzer: DEFINED.*",
-				".*ExceptionTracker: DEFINED.*",
-				".*RequestExceptionHandler: DEFINED.*"
-		};
-		
-		for (String regex : ignoreRegexs) {
+		for (String regex : IGNORE_REGEXS) {
 			if(Pattern.matches(regex, input)){
 				return false;
 			}
 		}
 		
-		Pattern pattern = Pattern.compile(".*exception.*",
-				Pattern.CASE_INSENSITIVE);
 		boolean b = false;
-		
-		Matcher matcher = pattern.matcher(input);
-		if(!matcher.find()){
-			pattern = Pattern.compile(".*error.*",
+		for (String regex : BEGINNING_REGEXS) {
+			Pattern pattern = Pattern.compile(regex,
 					Pattern.CASE_INSENSITIVE);
-			b = pattern.matcher(input).find();
-		}else{
-			b = true;
+			Matcher matcher = pattern.matcher(input);
+			
+			if(!matcher.find()){
+				continue;
+			}else{
+				b = true;
+				break;
+			}
 		}
+		
 		return b;
 	}
 	
