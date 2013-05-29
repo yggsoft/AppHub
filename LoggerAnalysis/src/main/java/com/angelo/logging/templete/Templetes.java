@@ -15,9 +15,11 @@ public class Templetes {
 	
 	private Templetes() {
 		templetes = new ArrayList<Templete>();
-		templetes.add(deadLockTemplete());
-		templetes.add(duplicateToDBTemplete());
-		templetes.add(refuseConnectingMailServerTemplete());
+//		templetes.add(deadLockTemplete());
+		templetes.add(deadLockTemplete1());
+//		templetes.add(duplicateToDBTemplete());
+		templetes.add(duplicateToDBTemplete1());
+//		templetes.add(refuseConnectingMailServerTemplete());
 	}
 
 	private Templete refuseConnectingMailServerTemplete() {
@@ -26,10 +28,33 @@ public class Templetes {
 				.getResource("SamplesLib/MailRefuseConnection.sample")
 				.getPath()));
 		Templete temp = sample.getTemplete();
+		temp.setTitle("Mail Server Refuse to connect");
+		temp.setRCA("Mail Server Refuse to connect.");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete deadLockTemplete1() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/DeadLock.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Dead Lock");
+		temp.setRCA("Failure requests for database produce a dead lock.");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete duplicateToDBTemplete1() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/InsertDuplicateRecords.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
 		temp.setTitle("Duplicate records to DB");
 		temp.setRCA("Duplicate records to DB");
 		temp.setReProduceSteps("");
-		
 		return temp;
 	}
 

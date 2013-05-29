@@ -1,6 +1,7 @@
 package com.angelo.logging.sample;
 
 import java.io.File;
+import java.util.regex.Matcher;
 
 import com.angelo.logging.Constants;
 import com.angelo.logging.io.TextFileReader;
@@ -15,7 +16,6 @@ public class ExceptionSample {
 
 	public Templete getTemplete() {
 		TextFileReader reader = new TextFileReader(this.file);
-		//
 		String content = reader.read();
 		// Pattern p = Pattern.compile("\\(.*\\)", Pattern.MULTILINE |
 		// Pattern.DOTALL);
@@ -24,8 +24,8 @@ public class ExceptionSample {
 		// m.appendReplacement(sf, "");
 
 		content = content.replaceAll("(?m)\\(.*\\)", "");
-//		content = content.replaceAll("(?m)" + Constants.LINE_SEPRATOR, ".*");
-		content = content.replaceAll("(?m)\\$", "\\\\$");
+		content = content.replaceAll("(?m)" + Constants.LINE_SEPRATOR, ".*");
+		content = content.replaceAll("(?m)\\$", Matcher.quoteReplacement("\\$"));
 		content = ".*" + content + ".*";
 		return new Templete(content);
 	}
