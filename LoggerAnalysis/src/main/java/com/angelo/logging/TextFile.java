@@ -7,20 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 
 public class TextFile {
 
 	private File file;
-	private List<ExceptionFragment> fragments;
-	private static final String HEADER = "=========================Begin=============================";
-	private static final String FOOTER = "===========================End=============================";
-	private static final String LINE   = "-----------------------------------------------------------";
-	private static final String LINE_SEPRATOR = System.getProperty("line.separator");
+	private String content;
 
-	public TextFile(File out, List<ExceptionFragment> allFragments) {
+	public TextFile(File out, String content) {
 		this.file = out;
-		this.fragments = allFragments;
+		this.content = content;
 	}
 
 	public void print() {
@@ -29,9 +24,7 @@ public class TextFile {
 		try {
 			writer = new FileWriter(this.file);
 			bfWriter = new BufferedWriter(writer);
-			for (ExceptionFragment fragment : fragments) {
-				write(bfWriter, fragment);
-			}
+			bfWriter.write(content);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,56 +50,5 @@ public class TextFile {
 				throw e;
 			}
 		}
-	}
-	
-	public void write(BufferedWriter bfWriter, ExceptionFragment fragment) {
-		try {
-			bfWriter.write(getSummary(fragment));
-			bfWriter.newLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	private String getSummary(ExceptionFragment fragment) {
-		String header = fragment.getIndex() + HEADER;
-		String footer = fragment.getIndex()  + FOOTER;
-		StringBuilder results = new StringBuilder();
-		
-		results.append(LINE_SEPRATOR);
-		results.append(header);
-		
-		results.append(LINE_SEPRATOR);
-		results.append(fragment.getTitle());
-		
-		results.append(LINE_SEPRATOR);
-		results.append("RCA:");
-		results.append(LINE_SEPRATOR);
-		results.append('\t'+fragment.getRCA());
-		
-		results.append(LINE_SEPRATOR);
-		results.append("Reproduce Steps:");
-		results.append(LINE_SEPRATOR);
-		results.append('\t'+fragment.getReproduceSteps());
-		
-		// results.append(LINE_SEPRATOR);
-		// results.append("Stack Top:");
-		// results.append(LINE_SEPRATOR);
-		// results.append(fragment.getRootException());
-		results.append(LINE_SEPRATOR);
-		results.append("Details:");
-		
-		results.append(LINE_SEPRATOR);
-		results.append(LINE);
-		results.append(LINE_SEPRATOR);
-		results.append(fragment.getContext());
-		results.append(LINE_SEPRATOR);
-		results.append(fragment.getDetailMessages());
-		
-		results.append(LINE_SEPRATOR);
-		results.append(footer);
-		
-		return results.toString();
 	}
 }

@@ -1,15 +1,1 @@
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert duplicate key row in object 
-	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:196)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1454)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:388)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:338)
-	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4026)
-	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1416)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:185)
-	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:160)
-	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:320)
-	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
-	at org.apache.commons.dbcp.DelegatingPreparedStatement.execute(DelegatingPreparedStatement.java:172)
-	at com.ibatis.sqlmap.engine.execution.SqlExecutor.executeUpdateProcedure(SqlExecutor.java:229)
-	at com.ibatis.sqlmap.engine.mapping.statement.ProcedureStatement.sqlExecuteUpdate(ProcedureStatement.java:34)
-	at com.ibatis.sqlmap.engine.mapping.statement.MappedStatement.executeUpdate(MappedStatement.java:94)
+com.microsoft.sqlserver.jdbc.SQLServerException: Cannot insert duplicate key row in object

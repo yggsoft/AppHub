@@ -4,28 +4,152 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.angelo.logging.Constants;
 import com.angelo.logging.sample.ExceptionSample;
 
 public class Templetes {
-
+	private static final Logger LOG = LoggerFactory.getLogger(Templetes.class);
 	private List<Templete> templetes;
+	private String templetesInfo;
 	
-	private static final String ANY = ".*";
 	private static Templetes t = new Templetes();
 	
 	private Templetes() {
 		templetes = new ArrayList<Templete>();
-//		templetes.add(deadLockTemplete());
-		templetes.add(deadLockTemplete1());
-//		templetes.add(duplicateToDBTemplete());
-		templetes.add(duplicateToDBTemplete1());
-//		templetes.add(refuseConnectingMailServerTemplete());
+		templetes.add(mailConnectionRefused());
+		templetes.add(mailParsingMessageError());
+		templetes.add(failureSendingEmail());
+		templetes.add(deadLockTemplete());
+		templetes.add(duplicateToDBTemplete());
+		templetes.add(databasePerformanceIssues());
+		templetes.add(dBConnectionClosed());
+		templetes.add(patientDetailExceptionWorkflow());
+		templetes.add(dBConnectionReset());
+		templetes.add(requestWithLogout());
+		
+		templetes.add(illegalRequest());
+		templetes.add(nullPatientDetailState());
 	}
-
-	private Templete refuseConnectingMailServerTemplete() {
+	
+	
+	private Templete nullPatientDetailState() {
 		ExceptionSample sample = new ExceptionSample(new File(Thread
 				.currentThread().getContextClassLoader()
-				.getResource("SamplesLib/MailRefuseConnection.sample")
+				.getResource("SamplesLib/NullPatientDetailState.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Illegal Request(NullPatientDetailState)");
+		temp.setRCA("Maybe open multiple browser windows or tabs for operation");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete illegalRequest() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/IllegalRequest.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Illegal Request(Not a user.)");
+		temp.setRCA("Illegal request.");
+		temp.setReProduceSteps("Unknown(not a user request)");
+		return temp;
+	}
+	
+	private Templete requestWithLogout() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/RequestWithLogoutExceptionWorkflow.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Request with logout");
+		temp.setRCA("send a request, at the same tiem, logout.");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete mailParsingMessageError() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/MailParsingMessageError.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Mail Parsing Message Error");
+		temp.setRCA("Mail Parsing Message Error");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete failureSendingEmail() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/FailureSendingEmail.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Failure Sending Email");
+		temp.setRCA("Invalid Addresses, 550 A valid address is required");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+
+	private Templete dBConnectionReset() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/DBConnectionReset.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Connection reset by peer");
+		temp.setRCA("Connection reset by peer");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete patientDetailExceptionWorkflow() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/PatientDetailExceptionWorkflow.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Exception Workflow");
+		temp.setRCA("Exception Work flow");
+		temp.setReProduceSteps("" +
+				"1.	Click into patient profile page." + Constants.LINE_SEPRATOR+
+				"2.	At the same time, logout." + Constants.LINE_SEPRATOR+
+				"");
+		return temp;
+	}
+	
+	private Templete dBConnectionClosed() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/DBConnectionClosed.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("DB Connection Closed");
+		temp.setRCA("The database connection is closed");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete databasePerformanceIssues() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/DatabasePerformanceIssues.sample")
+				.getPath()));
+		Templete temp = sample.getTemplete();
+		temp.setTitle("Database Performance Issues");
+		temp.setRCA("The query has timed out");
+		temp.setReProduceSteps("");
+		return temp;
+	}
+	
+	private Templete mailConnectionRefused() {
+		ExceptionSample sample = new ExceptionSample(new File(Thread
+				.currentThread().getContextClassLoader()
+				.getResource("SamplesLib/MailConnectionRefused.sample")
 				.getPath()));
 		Templete temp = sample.getTemplete();
 		temp.setTitle("Mail Server Refuse to connect");
@@ -34,7 +158,7 @@ public class Templetes {
 		return temp;
 	}
 	
-	private Templete deadLockTemplete1() {
+	private Templete deadLockTemplete() {
 		ExceptionSample sample = new ExceptionSample(new File(Thread
 				.currentThread().getContextClassLoader()
 				.getResource("SamplesLib/DeadLock.sample")
@@ -46,7 +170,7 @@ public class Templetes {
 		return temp;
 	}
 	
-	private Templete duplicateToDBTemplete1() {
+	private Templete duplicateToDBTemplete() {
 		ExceptionSample sample = new ExceptionSample(new File(Thread
 				.currentThread().getContextClassLoader()
 				.getResource("SamplesLib/InsertDuplicateRecords.sample")
@@ -58,71 +182,28 @@ public class Templetes {
 		return temp;
 	}
 
-	private Templete duplicateToDBTemplete() {
-		String title = "Duplicate records to DB";
-		String rCA = "Duplicate records to DB";
-		String reProduceSteps = "";
-
-		String regex = "" +ANY+
-				"javax.mail.MessagingException: Connect failed;" +ANY+
-				"nested exception is:" +ANY+
-				"java.net.ConnectException: Connection refused: connect" +ANY+
-				"at com.sun.mail.pop3.POP3Store.protocolConnect" +ANY+
-				"at javax.mail.Service.connect" +ANY+
-				"at javax.mail.Service.connect" +ANY+
-				"at javax.mail.Service.connect" +ANY+
-				"at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.getAllMessage" +ANY+
-				"at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.checkBouncedMail" +ANY+
-				"at sun.reflect.GeneratedMethodAccessor42.invoke" +ANY+
-				"at sun.reflect.DelegatingMethodAccessorImpl.invoke" +ANY+
-				"at java.lang.reflect.Method.invoke" +ANY+
-				"at org.springframework.util.MethodInvoker.invoke" +ANY+
-				"at org.springframework.scheduling.support.MethodInvokingRunnable.run" +ANY+
-				"at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run" +ANY+
-				"at java.util.concurrent.Executors$RunnableAdapter.call" +ANY+
-				"at java.util.concurrent.FutureTask$Sync.innerRunAndReset" +ANY+
-				"at java.util.concurrent.FutureTask.runAndReset" +ANY+
-				"at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101" +ANY+
-				"at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic" +ANY+
-				"at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run" +ANY+
-				"at java.util.concurrent.ThreadPoolExecutor$Worker.runTask" +ANY+
-				"at java.util.concurrent.ThreadPoolExecutor$Worker.run" +ANY+
-				"at java.lang.Thread.run" +ANY+
-				ANY;
-		return new Templete(title, rCA, reProduceSteps, regex.toString());
-	}
-
-	private Templete deadLockTemplete() {
-		String title = "Dead Lock";
-		String rCA = "Failure requests for database produce a dead lock.";
-		String reProduceSteps = "";
-
-		// () $ 
-		String regex = "" +ANY+
-		"Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Transaction "+ANY+" was deadlocked on lock resources with another process and has been chosen as the deadlock victim."+ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement\\$PrepStmtExecCmd.doExecute" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.TDSCommand.execute" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement" +ANY+ 
-		"at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute" +ANY+ 
-		"at org.apache.commons.dbcp.DelegatingPreparedStatement.execute" +ANY+ 
-		"at org.apache.commons.dbcp.DelegatingPreparedStatement.execute" +ANY+ 
-		"at com.ibatis.sqlmap.engine.execution.SqlExecutor.executeQueryProcedure" +ANY+ 
-		"at com.ibatis.sqlmap.engine.mapping.statement.ProcedureStatement.sqlExecuteQuery" +ANY+ 
-		"at com.ibatis.sqlmap.engine.mapping.statement.MappedStatement.executeQueryWithCallback"+ANY+ 
-		ANY;
-		return new Templete(title, rCA, reProduceSteps, regex.toString());
-	}
-
 	public static Templetes getInstance(){
 		return t;
 	}
 	
 	public List<Templete> getTempletes() {
+		LOG.info(getTempletesInfo());
 		return templetes;
+	}
+	
+	public String getTempletesInfo(){
+		if(templetesInfo != null){
+			return templetesInfo;
+		}
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Avaibale templetes:");
+		for (int i = 0; i < templetes.size(); i++) {
+			builder.append(Constants.LINE_SEPRATOR);
+			builder.append(i + "   "+templetes.get(i).getTitle());
+		}
+		
+		templetesInfo = builder.toString();
+		return templetesInfo;
 	}
 }

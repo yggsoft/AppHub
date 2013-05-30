@@ -1,6 +1,5 @@
 package com.angelo.logging.templete;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.angelo.logging.ExceptionFragment;
@@ -11,6 +10,7 @@ public class Templete {
 	private String RCA;
 	private String reProduceSteps;
 	private String templete;
+	private Pattern pattern;
 
 	public Templete(String title, String rCA, String reProduceSteps,
 			String templete) {
@@ -19,11 +19,13 @@ public class Templete {
 		RCA = rCA;
 		this.reProduceSteps = reProduceSteps;
 		this.templete = templete;
+		this.pattern = Pattern.compile(this.templete, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 	}
 	
 	public Templete(String templete) {
 		super();
 		this.templete = templete;
+		this.pattern = Pattern.compile(this.templete, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
 	}
 	
 	public String getTitle() {
@@ -67,9 +69,7 @@ public class Templete {
 	}
 
 	public boolean matches(ExceptionFragment exceptionFragment) {
-		Pattern pattern = Pattern.compile(this.templete, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
-		Matcher matcher = pattern.matcher(exceptionFragment.getDetailMessages());
-		return matcher.find();
+		return pattern.matcher(exceptionFragment.getDetailMessages()).find();
 	}
 
 }

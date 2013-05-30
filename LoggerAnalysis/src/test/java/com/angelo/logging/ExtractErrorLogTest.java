@@ -26,20 +26,12 @@ public class ExtractErrorLogTest {
 		}
 	}
 
-	@Test
+//	@Test
 	public void filesManyToOneTest() {
-		ExtractErrorLog errorLog = new ExtractErrorLog();
-		File inDir = new File(Thread.currentThread().getContextClassLoader().getResource("LogFile").getPath());
-		errorLog.setLogFilesDir(inDir);
-		File outDir = new File(Thread.currentThread().getContextClassLoader().getResource("LogFiles_Results").getPath());
-		errorLog.setOutPut(outDir);
-		errorLog.execute(new File(Thread.currentThread()
-				.getContextClassLoader().getResource("LogFiles_Results")
-				.getPath()
-				+ File.separator + "summary.txt"));
+		
 	}
 	
-//	@Test
+	@Test
 	public void april() {
 		String name = "April";
 		ExtractErrorLog errorLog = new ExtractErrorLog();

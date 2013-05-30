@@ -23,8 +23,9 @@ public class ExceptionSample {
 		// StringBuffer sf = new StringBuffer();
 		// m.appendReplacement(sf, "");
 
-		content = content.replaceAll("(?m)\\(.*\\)", "");
+		content = content.replaceAll("(?m)\\(.*\\)", ".*");
 		content = content.replaceAll("(?m)" + Constants.LINE_SEPRATOR, ".*");
+//		content = content.replaceAll("(?m)" + Constants.LINE_SEPRATOR, ".*\n");
 		content = content.replaceAll("(?m)\\$", Matcher.quoteReplacement("\\$"));
 		content = ".*" + content + ".*";
 		return new Templete(content);

@@ -1,0 +1,2 @@
+Caused by: java.lang.NullPointerException
+	at com.singulex.cvmedhome.presentation.pages.PatientDetail.getPatientId(PatientDetail.java:129)
