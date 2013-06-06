@@ -1,0 +1,380 @@
+2013-04-17 12:59:54,176 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 2199 ms - /patientlist
+2013-04-17 13:00:00,806 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /patientlist.searchform
+2013-04-17 13:00:04,285 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 3463 ms - /patientlist
+2013-04-17 13:00:08,809 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 2168 ms - /intakecandidatelist
+2013-04-17 13:00:16,796 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /intakecandidatelist.searchform
+2013-04-17 13:00:18,013 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 1217 ms - /intakecandidatelist
+2013-04-17 13:00:32,303 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 16 ms - /intakecandidatelist.searchform
+2013-04-17 13:00:33,504 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 1170 ms - /intakecandidatelist
+2013-04-17 13:00:45,032 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-17 13:01:52,175 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /intakecandidatelist.searchform
+2013-04-17 13:01:54,484 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 2309 ms - /intakecandidatelist
+2013-04-17 13:01:58,399 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 1981 ms - /intakecandidatelist.candidate/1434562
+2013-04-17 13:01:58,431 [http-443-5] DEBUG com.singulex.cvmedhome.presentation.components.TestResults - Token: 1062677168 - Patient ID: 1434562
+2013-04-17 13:02:01,660 [http-443-5] DEBUG com.singulex.cvmedhome.presentation.components.TestResults - Token: 1062677168 - {0=0}
+2013-04-17 13:02:04,125 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 5710 ms - /candidatecontact
+2013-04-17 13:05:45,037 [taskScheduler-2] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-17 13:08:10,819 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 2683 ms - /intakecandidatelist
+2013-04-17 13:08:13,767 [http-443-11] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 671 ms - /intakecandidatelist.candidate/1434562
+2013-04-17 13:08:15,343 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 2449 ms - /intakecandidatelist.candidate/1434562
+2013-04-17 13:08:16,684 [http-443-11] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 2901 ms - /intakecandidatelist
+
+2013-04-17 13:09:35,652 [http-443-11] ERROR org.apache.tapestry5.ioc.Registry - SqlMapClient operation; bad SQL grammar []; nested exception is com.ibatis.common.jdbc.exception.NestedSQLException:   
+--- The error occurred in com/singulex/cvmedhome/services/patientprofile/PatientProfile.xml.  
+--- The error occurred while applying a parameter map.  
+--- Check the PatientProfile.returnToQueueParams.  
+--- Check the statement (update procedure failed).  
+--- Cause: com.microsoft.sqlserver.jdbc.SQLServerException: Security_AssertPrimaryCHE() - @userID: User 1101378 is not the primary CHE for patient 1434562. - Error_RaiseError line 16, number = 50000, severity = 11, state = 1,  - Error_RaiseError line 16, number = 50000, severity = 11, state = 1, 
+2013-04-17 13:09:35,652 [http-443-11] ERROR org.apache.tapestry5.ioc.Registry - Operations trace:
+2013-04-17 13:09:35,652 [http-443-11] ERROR org.apache.tapestry5.ioc.Registry - [ 1] Triggering event 'activate' on IntakeCandidateList
+2013-04-17 13:09:35,652 [http-443-11] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 312 ms - /intakecandidatelist.candidate/1434562
+2013-04-17 13:09:35,652 [http-443-11] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 312 ms - /intakecandidatelist.candidate/1434562
+
+2013-04-18 19:10:07,464 [taskScheduler-2] INFO  com.singulex.cvmedhome.tasks.notification.NotificationReceiver - Received bounced mail: Undeliverable: Singulex CVMedHome: Action plan updated
+2013-04-18 19:10:07,495 [taskScheduler-2] INFO  com.singulex.cvmedhome.tasks.notification.NotificationReceiver - record reject email address: barbarahonig@juno.com
+2013-04-18 19:10:08,010 [taskScheduler-2] INFO  com.singulex.cvmedhome.tasks.notification.NotificationReceiver - Received bounced mail: Undeliverable: Singulex CVMedHome: Action plan updated
+2013-04-18 19:15:06,360 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:19:46,287 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 15 ms - /
+2013-04-18 19:20:06,349 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:25:06,353 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:30:06,357 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:34:49,560 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 15 ms - /
+2013-04-18 19:35:06,346 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:39:50,251 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 16 ms - /
+2013-04-18 19:40:06,350 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:40:08,113 [http-80-2] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /
+2013-04-18 19:41:00,544 [http-80-2] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /
+2013-04-18 19:45:06,354 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 19:45:06,962 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender -   Sending notification 3741859
+2013-04-18 19:45:06,994 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender -   Sending notification 3741860
+2013-04-18 19:45:08,039 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender -   Sending notification 3741861
+2013-04-18 19:49:52,552 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 16 ms - /
+2013-04-18 19:50:06,358 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+
+2013-04-18 19:50:25,312 [taskScheduler-1] ERROR org.springframework.scheduling.support.MethodInvokingRunnable - Invocation of method 'sendNotifications' on target class [class com.singulex.cvmedhome.tasks.notification.NotificationSender] failed
+org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doBegin(DataSourceTransactionManager.java:241)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:371)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:317)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:105)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:625)
+	at com.singulex.cvmedhome.services.session.SessionService$$EnhancerByCGLIB$$f26f29e8.startSession(<generated>)
+	at com.singulex.cvmedhome.tasks.notification.NotificationSender.sendNotifications(NotificationSender.java:43)
+	at sun.reflect.GeneratedMethodAccessor56.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:273)
+	at org.springframework.scheduling.support.MethodInvokingRunnable.run(MethodInvokingRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:51)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:1368)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:1355)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:1532)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:3274)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:4437)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:4389)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection$1ConnectionCommand.doExecute(SQLServerConnection.java:1457)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4026)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1416)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectionCommand(SQLServerConnection.java:1462)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.setAutoCommit(SQLServerConnection.java:1610)
+	at org.apache.commons.dbcp.DelegatingConnection.setAutoCommit(DelegatingConnection.java:371)
+	at org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper.setAutoCommit(PoolingDataSource.java:328)
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doBegin(DataSourceTransactionManager.java:224)
+	... 22 more
+2013-04-18 19:52:10,082 [taskScheduler-2] ERROR com.singulex.cvmedhome.tasks.notification.NotificationReceiver - Read message error 
+javax.mail.AuthenticationFailedException: EOF on socket
+	at com.sun.mail.pop3.POP3Store.protocolConnect(POP3Store.java:174)
+	at javax.mail.Service.connect(Service.java:291)
+	at javax.mail.Service.connect(Service.java:172)
+	at javax.mail.Service.connect(Service.java:121)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.getAllMessage(NotificationReceiver.java:72)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.checkBouncedMail(NotificationReceiver.java:58)
+	at sun.reflect.GeneratedMethodAccessor57.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:273)
+	at org.springframework.scheduling.support.MethodInvokingRunnable.run(MethodInvokingRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:51)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+2013-04-18 19:52:10,082 [taskScheduler-2] ERROR org.springframework.scheduling.support.MethodInvokingRunnable - Invocation of method 'checkBouncedMail' on target class [class com.singulex.cvmedhome.tasks.notification.NotificationReceiver] failed
+java.lang.NullPointerException
+	at java.util.Arrays$ArrayList.<init>(Arrays.java:3357)
+	at java.util.Arrays.asList(Arrays.java:3343)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.getAllMessage(NotificationReceiver.java:84)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.checkBouncedMail(NotificationReceiver.java:58)
+	at sun.reflect.GeneratedMethodAccessor57.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:273)
+	at org.springframework.scheduling.support.MethodInvokingRunnable.run(MethodInvokingRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:51)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+2013-04-18 19:54:53,601 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /
+2013-04-18 19:54:53,601 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /
+
+2013-04-18 19:55:06,347 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+
+2013-04-18 19:55:12,431 [taskScheduler-2] ERROR com.singulex.cvmedhome.tasks.notification.NotificationReceiver - Read message error 
+javax.mail.AuthenticationFailedException: EOF on socket
+	at com.sun.mail.pop3.POP3Store.protocolConnect(POP3Store.java:174)
+	at javax.mail.Service.connect(Service.java:291)
+	at javax.mail.Service.connect(Service.java:172)
+	at javax.mail.Service.connect(Service.java:121)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.getAllMessage(NotificationReceiver.java:72)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.checkBouncedMail(NotificationReceiver.java:58)
+	at sun.reflect.GeneratedMethodAccessor57.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:273)
+	at org.springframework.scheduling.support.MethodInvokingRunnable.run(MethodInvokingRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:51)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+2013-04-18 19:55:12,431 [taskScheduler-2] ERROR org.springframework.scheduling.support.MethodInvokingRunnable - Invocation of method 'checkBouncedMail' on target class [class com.singulex.cvmedhome.tasks.notification.NotificationReceiver] failed
+java.lang.NullPointerException
+	at java.util.Arrays$ArrayList.<init>(Arrays.java:3357)
+	at java.util.Arrays.asList(Arrays.java:3343)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.getAllMessage(NotificationReceiver.java:84)
+	at com.singulex.cvmedhome.tasks.notification.NotificationReceiver.checkBouncedMail(NotificationReceiver.java:58)
+	at sun.reflect.GeneratedMethodAccessor57.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:273)
+	at org.springframework.scheduling.support.MethodInvokingRunnable.run(MethodInvokingRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:51)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+2013-04-18 19:55:25,301 [taskScheduler-1] ERROR org.springframework.scheduling.support.MethodInvokingRunnable - Invocation of method 'sendNotifications' on target class [class com.singulex.cvmedhome.tasks.notification.NotificationSender] failed
+org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doBegin(DataSourceTransactionManager.java:241)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:371)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:317)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:105)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:625)
+	at com.singulex.cvmedhome.services.session.SessionService$$EnhancerByCGLIB$$f26f29e8.startSession(<generated>)
+	at com.singulex.cvmedhome.tasks.notification.NotificationSender.sendNotifications(NotificationSender.java:43)
+	at sun.reflect.GeneratedMethodAccessor56.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.springframework.util.MethodInvoker.invoke(MethodInvoker.java:273)
+	at org.springframework.scheduling.support.MethodInvokingRunnable.run(MethodInvokingRunnable.java:65)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:51)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:1368)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:1355)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:1532)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:3274)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:4437)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:4389)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection$1ConnectionCommand.doExecute(SQLServerConnection.java:1457)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4026)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1416)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectionCommand(SQLServerConnection.java:1462)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.setAutoCommit(SQLServerConnection.java:1610)
+	at org.apache.commons.dbcp.DelegatingConnection.setAutoCommit(DelegatingConnection.java:371)
+	at org.apache.commons.dbcp.PoolingDataSource$PoolGuardConnectionWrapper.setAutoCommit(PoolingDataSource.java:328)
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doBegin(DataSourceTransactionManager.java:224)
+	... 22 more
+2013-04-18 20:00:06,351 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 20:05:06,355 [taskScheduler-1] INFO  com.singulex.cvmedhome.tasks.notification.NotificationSender - sendNotifications - enabled: true
+2013-04-18 20:09:56,203 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /
+2013-04-18 20:09:56,203 [http-443-3] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 0 ms - /
+
+
+2013-02-01 07:54:21,116 [http-443-5] ERROR org.apache.tapestry5.services.TapestryModule.RequestExceptionHandler - Unexpected runtime exception: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication.
+org.apache.tapestry5.runtime.ComponentEventException: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. [at classpath:com/singulex/cvmedhome/presentation/pages/Index.tml, line 7]
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.processEventTriggering(ComponentPageElementImpl.java:1152)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.access$3000(ComponentPageElementImpl.java:72)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl$7.invoke(ComponentPageElementImpl.java:1077)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl$7.invoke(ComponentPageElementImpl.java:1074)
+	at org.apache.tapestry5.ioc.internal.OperationTrackerImpl.invoke(OperationTrackerImpl.java:65)
+	at org.apache.tapestry5.ioc.internal.PerThreadOperationTracker.invoke(PerThreadOperationTracker.java:68)
+	at org.apache.tapestry5.ioc.internal.RegistryImpl.invoke(RegistryImpl.java:1057)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementResourcesImpl.invoke(ComponentPageElementResourcesImpl.java:141)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.triggerContextEvent(ComponentPageElementImpl.java:1073)
+	at org.apache.tapestry5.internal.services.ComponentEventRequestHandlerImpl.handle(ComponentEventRequestHandlerImpl.java:81)
+	at org.apache.tapestry5.internal.services.ImmediateActionRenderResponseFilter.handle(ImmediateActionRenderResponseFilter.java:42)
+	at $ComponentEventRequestHandler_13c953a4d2c.handle($ComponentEventRequestHandler_13c953a4d2c.java)
+	at org.apache.tapestry5.internal.services.AjaxFilter.handle(AjaxFilter.java:42)
+	at $ComponentEventRequestHandler_13c953a4d2c.handle($ComponentEventRequestHandler_13c953a4d2c.java)
+	at uk.co.ioko.tapestry.cacheControl.services.CacheControlFilter.handle(CacheControlFilter.java:89)
+	at $ComponentEventRequestHandler_13c953a4d2c.handle($ComponentEventRequestHandler_13c953a4d2c.java)
+	at org.apache.tapestry5.services.TapestryModule$39.handle(TapestryModule.java:2567)
+	at $ComponentEventRequestHandler_13c953a4d2c.handle($ComponentEventRequestHandler_13c953a4d2c.java)
+	at $ComponentEventRequestHandler_13c953a4c2c.handle($ComponentEventRequestHandler_13c953a4c2c.java)
+	at org.apache.tapestry5.internal.services.ComponentRequestHandlerTerminator.handleComponentEvent(ComponentRequestHandlerTerminator.java:43)
+	at org.apache.tapestry5.services.InitializeActivePageName.handleComponentEvent(InitializeActivePageName.java:39)
+	at $ComponentRequestHandler_13c953a4c2e.handleComponentEvent($ComponentRequestHandler_13c953a4c2e.java)
+	at $ComponentRequestHandler_13c953a4c12.handleComponentEvent($ComponentRequestHandler_13c953a4c12.java)
+	at org.apache.tapestry5.internal.services.ComponentEventDispatcher.dispatch(ComponentEventDispatcher.java:46)
+	at $Dispatcher_13c953a4c14.dispatch($Dispatcher_13c953a4c14.java)
+	at $Dispatcher_13c953a4c0f.dispatch($Dispatcher_13c953a4c0f.java)
+	at org.apache.tapestry5.services.TapestryModule$RequestHandlerTerminator.service(TapestryModule.java:320)
+	at com.singulex.cvmedhome.presentation.services.AppModule$2.service(AppModule.java:144)
+	at $RequestFilter_13c953a4c0e.service($RequestFilter_13c953a4c0e.java)
+	at $RequestHandler_13c953a4c10.service($RequestHandler_13c953a4c10.java)
+	at org.apache.tapestry5.internal.services.RequestErrorFilter.service(RequestErrorFilter.java:26)
+	at $RequestHandler_13c953a4c10.service($RequestHandler_13c953a4c10.java)
+	at org.apache.tapestry5.services.TapestryModule$4.service(TapestryModule.java:982)
+	at $RequestHandler_13c953a4c10.service($RequestHandler_13c953a4c10.java)
+	at org.apache.tapestry5.services.TapestryModule$3.service(TapestryModule.java:972)
+	at $RequestHandler_13c953a4c10.service($RequestHandler_13c953a4c10.java)
+	at org.apache.tapestry5.internal.services.StaticFilesFilter.service(StaticFilesFilter.java:90)
+	at $RequestHandler_13c953a4c10.service($RequestHandler_13c953a4c10.java)
+	at org.apache.tapestry5.internal.services.CheckForUpdatesFilter$2.invoke(CheckForUpdatesFilter.java:90)
+	at org.apache.tapestry5.internal.services.CheckForUpdatesFilter$2.invoke(CheckForUpdatesFilter.java:80)
+	at org.apache.tapestry5.ioc.internal.util.ConcurrentBarrier.withRead(ConcurrentBarrier.java:85)
+	at org.apache.tapestry5.internal.services.CheckForUpdatesFilter.service(CheckForUpdatesFilter.java:103)
+	at $RequestHandler_13c953a4c10.service($RequestHandler_13c953a4c10.java)
+	at $RequestHandler_13c953a4c05.service($RequestHandler_13c953a4c05.java)
+	at org.apache.tapestry5.services.TapestryModule$HttpServletRequestHandlerTerminator.service(TapestryModule.java:271)
+	at com.singulex.cvmedhome.presentation.services.AppModule$1.service(AppModule.java:106)
+	at $HttpServletRequestFilter_13c953a4c04.service($HttpServletRequestFilter_13c953a4c04.java)
+	at $HttpServletRequestHandler_13c953a4c07.service($HttpServletRequestHandler_13c953a4c07.java)
+	at org.apache.tapestry5.internal.gzip.GZipFilter.service(GZipFilter.java:53)
+	at $HttpServletRequestHandler_13c953a4c07.service($HttpServletRequestHandler_13c953a4c07.java)
+	at org.apache.tapestry5.internal.services.IgnoredPathsFilter.service(IgnoredPathsFilter.java:62)
+	at $HttpServletRequestFilter_13c953a4c03.service($HttpServletRequestFilter_13c953a4c03.java)
+	at $HttpServletRequestHandler_13c953a4c07.service($HttpServletRequestHandler_13c953a4c07.java)
+	at org.apache.tapestry5.services.TapestryModule$2.service(TapestryModule.java:926)
+	at $HttpServletRequestHandler_13c953a4c07.service($HttpServletRequestHandler_13c953a4c07.java)
+	at $HttpServletRequestHandler_13c953a4c01.service($HttpServletRequestHandler_13c953a4c01.java)
+	at org.apache.tapestry5.TapestryFilter.doFilter(TapestryFilter.java:147)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:233)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:555)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:298)
+	at org.apache.coyote.http11.Http11AprProcessor.process(Http11AprProcessor.java:859)
+	at org.apache.coyote.http11.Http11AprProtocol$Http11ConnectionHandler.process(Http11AprProtocol.java:579)
+	at org.apache.tomcat.util.net.AprEndpoint$Worker.run(AprEndpoint.java:1555)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: org.apache.tapestry5.ioc.internal.OperationException: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. [at classpath:com/singulex/cvmedhome/presentation/pages/Index.tml, line 7]
+	at org.apache.tapestry5.ioc.internal.OperationTrackerImpl.logAndRethrow(OperationTrackerImpl.java:102)
+	at org.apache.tapestry5.ioc.internal.OperationTrackerImpl.invoke(OperationTrackerImpl.java:69)
+	at org.apache.tapestry5.ioc.internal.PerThreadOperationTracker.invoke(PerThreadOperationTracker.java:68)
+	at org.apache.tapestry5.ioc.internal.RegistryImpl.invoke(RegistryImpl.java:1057)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementResourcesImpl.invoke(ComponentPageElementResourcesImpl.java:141)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.triggerContextEvent(ComponentPageElementImpl.java:1073)
+	at org.apache.tapestry5.internal.structure.InternalComponentResourcesImpl.triggerContextEvent(InternalComponentResourcesImpl.java:287)
+	at org.apache.tapestry5.corelib.components.Form._$advised$onAction(Form.java:539)
+	at org.apache.tapestry5.corelib.components.Form$onAction$invocation_13c953d15d0.invokeAdvisedMethod(Form$onAction$invocation_13c953d15d0.java)
+	at org.apache.tapestry5.internal.services.AbstractComponentMethodInvocation.proceed(AbstractComponentMethodInvocation.java:77)
+	at org.apache.tapestry5.ioc.internal.services.LoggingAdvice.advise(LoggingAdvice.java:37)
+	at org.apache.tapestry5.internal.transform.LogWorker$1.advise(LogWorker.java:54)
+	at org.apache.tapestry5.internal.services.AbstractComponentMethodInvocation.proceed(AbstractComponentMethodInvocation.java:86)
+	at org.apache.tapestry5.corelib.components.Form.onAction(Form.java)
+	at org.apache.tapestry5.corelib.components.Form$MethodAccess_onAction_13c953a4c79.invoke(Form$MethodAccess_onAction_13c953a4c79.java)
+	at org.apache.tapestry5.internal.transform.BaseEventHandlerMethodInvoker.invokeEventHandlerMethod(BaseEventHandlerMethodInvoker.java:52)
+	at org.apache.tapestry5.internal.transform.OnEventWorker$4.invokeEventHandlers(OnEventWorker.java:157)
+	at org.apache.tapestry5.internal.transform.OnEventWorker$4.advise(OnEventWorker.java:136)
+	at org.apache.tapestry5.internal.services.AbstractComponentMethodInvocation.proceed(AbstractComponentMethodInvocation.java:86)
+	at org.apache.tapestry5.corelib.components.Form.dispatchComponentEvent(Form.java)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.dispatchEvent(ComponentPageElementImpl.java:950)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.processEventTriggering(ComponentPageElementImpl.java:1132)
+	... 69 more
+Caused by: org.apache.tapestry5.runtime.ComponentEventException: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication. [at classpath:com/singulex/cvmedhome/presentation/pages/Index.tml, line 7]
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.processEventTriggering(ComponentPageElementImpl.java:1152)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.access$3000(ComponentPageElementImpl.java:72)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl$7.invoke(ComponentPageElementImpl.java:1077)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl$7.invoke(ComponentPageElementImpl.java:1074)
+	at org.apache.tapestry5.ioc.internal.OperationTrackerImpl.invoke(OperationTrackerImpl.java:65)
+	... 89 more
+Caused by: org.springframework.transaction.CannotCreateTransactionException: Could not open JDBC Connection for transaction; nested exception is com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication.
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doBegin(DataSourceTransactionManager.java:241)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:371)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:317)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:105)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:172)
+	at org.springframework.aop.framework.Cglib2AopProxy$DynamicAdvisedInterceptor.intercept(Cglib2AopProxy.java:625)
+	at com.singulex.cvmedhome.services.session.SessionService$$EnhancerByCGLIB$$2a1f385.startSession(<generated>)
+	at com.singulex.cvmedhome.presentation.services.Security.login(Security.java:43)
+	at com.singulex.cvmedhome.presentation.pages.Index.login(Index.java:140)
+	at com.singulex.cvmedhome.presentation.pages.Index.onSuccessFromLoginForm(Index.java:120)
+	at com.singulex.cvmedhome.presentation.pages.Index._$access_onSuccessFromLoginForm(Index.java)
+	at com.singulex.cvmedhome.presentation.pages.Index$MethodAccess_onSuccessFromLoginForm_13c953a4c52.invoke(Index$MethodAccess_onSuccessFromLoginForm_13c953a4c52.java)
+	at org.apache.tapestry5.internal.transform.BaseEventHandlerMethodInvoker.invokeEventHandlerMethod(BaseEventHandlerMethodInvoker.java:52)
+	at org.apache.tapestry5.internal.transform.OnEventWorker$4.invokeEventHandlers(OnEventWorker.java:157)
+	at org.apache.tapestry5.internal.transform.OnEventWorker$4.advise(OnEventWorker.java:136)
+	at org.apache.tapestry5.internal.services.AbstractComponentMethodInvocation.proceed(AbstractComponentMethodInvocation.java:86)
+	at com.singulex.cvmedhome.presentation.pages.Index.dispatchComponentEvent(Index.java)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.dispatchEvent(ComponentPageElementImpl.java:942)
+	at org.apache.tapestry5.internal.structure.ComponentPageElementImpl.processEventTriggering(ComponentPageElementImpl.java:1132)
+	... 93 more
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: This driver is not configured for integrated authentication.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDriverError(SQLServerException.java:170)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.SSPIData(SQLServerConnection.java:1954)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.sendLogon(SQLServerConnection.java:2333)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.logon(SQLServerConnection.java:1929)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.access$000(SQLServerConnection.java:41)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection$LogonCommand.doExecute(SQLServerConnection.java:1917)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:4026)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1416)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connectHelper(SQLServerConnection.java:1061)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.login(SQLServerConnection.java:833)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.connect(SQLServerConnection.java:716)
+	at com.microsoft.sqlserver.jdbc.SQLServerDriver.connect(SQLServerDriver.java:841)
+	at org.apache.commons.dbcp.DriverConnectionFactory.createConnection(DriverConnectionFactory.java:38)
+	at org.apache.commons.dbcp.PoolableConnectionFactory.makeObject(PoolableConnectionFactory.java:582)
+	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:1148)
+	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:106)
+	at org.apache.commons.dbcp.BasicDataSource.getConnection(BasicDataSource.java:1044)
+	at org.springframework.jdbc.datasource.DataSourceTransactionManager.doBegin(DataSourceTransactionManager.java:203)
+	... 111 more
+2013-02-01 07:54:24,251 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 15 ms - /
+2013-02-01 07:54:24,251 [http-443-5] INFO  com.singulex.cvmedhome.presentation.services.AppModule.TimingFilter - Request time: 15 ms - /

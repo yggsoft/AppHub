@@ -12,7 +12,7 @@ public class ExceptionSampleTest {
 	public void test() {
 		ExceptionSample sample = new ExceptionSample(new File(Thread
 				.currentThread().getContextClassLoader()
-				.getResource("SamplesLib/DBConnectionClosed.sample")
+				.getResource("SamplesLib/IllegalRequest.sample")
 				.getPath()));
 		Templete temp = sample.getTemplete();
 		temp.setTitle("Duplicate records to DB");

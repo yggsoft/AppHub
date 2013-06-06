@@ -1,0 +1,3 @@
+--- Check the PatientProfile.returnToQueueParams.  
+--- Check the statement (update procedure failed).  
+--- Cause: com.microsoft.sqlserver.jdbc.SQLServerException: Security_AssertPrimaryCHE()

@@ -1,0 +1,1 @@
+java -classpath ../lib/h2-1.3.172.jar org.h2.tools.Server -tcpAllowOthers

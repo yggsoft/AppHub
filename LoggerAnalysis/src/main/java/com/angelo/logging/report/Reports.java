@@ -3,7 +3,7 @@ package com.angelo.logging.report;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.angelo.logging.Constants;
+import com.angelo.logging.util.Constants;
 
 public class Reports {
 	private static final Logger LOG = LoggerFactory.getLogger(Reports.class);

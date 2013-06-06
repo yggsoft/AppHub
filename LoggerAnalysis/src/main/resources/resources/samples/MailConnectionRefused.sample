@@ -1,0 +1,3 @@
+javax.mail.MessagingException: Connect failed;
+  nested exception is:
+	java.net.ConnectException: Connection refused: connect

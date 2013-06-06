@@ -1,0 +1,24 @@
+DROP TABLE IF EXISTS Templete;
+create table Templete(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(5000),
+	category VARCHAR(5000),
+	title VARCHAR(10000),
+	RCA VARCHAR(100000),
+	reProduceSteps VARCHAR(100000),
+	templete VARCHAR(2147483647),
+	priority INT,
+	timestamp TIMESTAMP
+);
+
+--ALTER TABLE Templete
+--ADD name VARCHAR(5000);
+
+--ALTER TABLE Templete
+--ADD timestamp TIMESTAMP;
+
+ALTER TABLE TEMPLETE
+ADD IGNORE BOOLEAN;
+
+
+--2147483647 Integer.MAX_VALUE
