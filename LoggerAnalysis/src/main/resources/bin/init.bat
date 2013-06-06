@@ -4,6 +4,7 @@ goto comments
 	vi .gitignore
 	
 	git add .
+	git add -u 
 	git commit -m "--"
 	git push
 :comments

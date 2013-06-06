@@ -10,7 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.angelo.logging.io.TextFileReader;
+import com.angelo.logging.job.LoggerExtracter;
 import com.angelo.logging.logger.ExceptionFragment;
 import com.angelo.logging.logger.LoggerFile;
 import com.angelo.logging.templete.Rule;
@@ -19,6 +23,7 @@ import com.angelo.logging.templete.Templete;
 import com.angelo.logging.util.Constants;
 
 public class DBManagement {
+	private static final Logger LOG = LoggerFactory.getLogger(LoggerExtracter.class);
 	private static final String INSERT_EXCEPTIONFRAGMENT_SQL = "insert into ExceptionFragment" +
 			"(title, rca, reproduceSteps, rootException, context, detailMessages, date, analysisCompleted)" +
 			"values(?,?,?,?,?,?,?,?)";
@@ -27,21 +32,25 @@ public class DBManagement {
 	
 	private static final String UPDATE_EXCEPTIONFRAGMENT_SQL = "update exceptionfragment set title = ?, rca = ?, reproduceSteps = ?, rootException=?, analysisCompleted=?, ISMATCHED = ?, ignore = ?  where id = ?";
 	
+	static {
+		try {
+			Class.forName("org.h2.Driver");
+		} catch (ClassNotFoundException e) {
+			LOG.error("database driver " + e);
+			throw new DataAccessException(e);
+		}
+	}
+	
 	public Connection getConnection() {
 		Connection conn = null;
 		try {
-			Class.forName("org.h2.Driver");
-			// jdbc:h2:tcp://localhost/~/h2/data
-			// jdbc:h2:~/h2/data
-			conn = DriverManager.getConnection(Constants.getInstance().getH2url(), "sa", "");
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			conn = DriverManager.getConnection(Constants.getInstance()
+					.getH2url(), "sa", "");
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("database connection " + e);
+			throw new DataAccessException(e);
 		}
-
 		return conn;
 	}
 
@@ -104,7 +113,7 @@ public class DBManagement {
 		
 			pst.setBoolean(8, fragment.isAnalysisCompleted());
 			
-			pst.execute();
+			pst.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -437,12 +446,108 @@ public class DBManagement {
 		List<Templete> templetes = getTemplates("SELECT T.ID, CATEGORY, TITLE, RCA, REPRODUCESTEPS, TEMPLETE FROM TEMPLETE T WHERE T.IGNORE = TRUE");
 		return setTempleteRules(templetes);
 	}
-	
-	
 
-	// public void select(String sql, ){
-	//
-	// }
+	public boolean extractLogger(LoggerFile loggerFile,
+			List<ExceptionFragment> fragments) {
+		execute("");
+		return false;
+	}
 	
+	public void execute(String sql, Object ...args){
+		Connection connection = getConnection();
+		PreparedStatement pst = null;
+		try {
+			connection.setAutoCommit(false);
+			pst = connection.prepareStatement(sql);
+			
+			for (int i = 0; i < args.length; i++) {
+				pst.setObject(i + 1, args[i]);
+			}
+			
+			pst.execute();
+			connection.commit();
+		} catch (SQLException e) {
+			rollback(connection, e);
+			throw new DataAccessException(e);
+		} finally {
+			close(connection);
+		}
+	}
 	
+	public ResultSet query(Connection conn, String sql, Object... params)
+			throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(sql);
+		if (params != null) {
+			for (int i = 0; i < params.length; i++) {
+				ps.setObject(i + 1, params[i]);
+			}
+		}
+		ResultSet rs = ps.executeQuery();
+		return rs;
+	}
+
+	public static int update(Connection conn, String sql, Object... params)
+			throws SQLException {
+		PreparedStatement ps = conn.prepareStatement(sql);
+		if (params != null) {
+			for (int i = 0; i < params.length; i++) {
+				ps.setObject(i + 1, params[i]);
+			}
+		}
+		int count = ps.executeUpdate();
+		return count;
+	}
+	
+	private void rollback(Connection connection, SQLException e) {
+		if(connection != null){
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new DataAccessException(e);
+			}
+		}
+	}
+
+	private void close(Connection connection) {
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new DataAccessException(e);
+			}
+		}
+	}
+	
+	public static void free(ResultSet rs, Statement st, Connection conn) {
+		try {
+			if (rs != null) {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			exceptionHandler(e);
+			throw new DataAccessException();
+		} finally {
+			try {
+				if (st != null) {
+					st.close();
+				}
+			} catch (SQLException e) {
+				exceptionHandler(e);
+				throw new DataAccessException();
+			} finally {
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+				} catch (SQLException e) {
+					exceptionHandler(e);
+					throw new DataAccessException();
+				}
+			}
+		}
+	}
+
+	private static void exceptionHandler(SQLException e) {
+		LOG.error("database " + e);
+	}
 }

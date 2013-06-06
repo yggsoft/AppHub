@@ -16,14 +16,13 @@ public class App {
 			Initialize.main(null);
 		}
 		
-		LoggerExtracter errorLog = new LoggerExtracter();
-		errorLog.setLogFilesDir(new File(Constants.getInstance().getInDir()));
-		errorLog.setOutPut(new File(Constants.getInstance().getOutLoggerFileDir()));
+		LoggerExtracter extracter = new LoggerExtracter(new File(Constants.getInstance().getInDir()));
+		extracter.setOutPut(new File(Constants.getInstance().getOutLoggerFileDir()));
 		
-		Thread extractThread = new Thread(errorLog);
-		extractThread.setName("Extract");
+		Thread extractThread = new Thread(extracter);
 		Thread analysisThread = new Thread(new LoggerAnalyster());
-		analysisThread.setName("Analysis");
+		extractThread.setName("Extracter");
+		analysisThread.setName("Analyster");
 		
 		extractThread.start();
 		analysisThread.start();

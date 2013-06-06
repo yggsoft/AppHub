@@ -8,16 +8,14 @@ import com.angelo.logging.job.LoggerExtracter;
 
 public class ExtractErrorLogTest {
 
-//	@Test
+	@Test
 	public void filesOneToOneTest() {
-		LoggerExtracter errorLog = new LoggerExtracter();
-		File inDir = new File(Thread.currentThread().getContextClassLoader().getResource("LogFile").getPath());
-		errorLog.setLogFilesDir(inDir);
+		LoggerExtracter errorLog = new LoggerExtracter(new File("C:\\Documents and Settings\\Angelo\\Desktop\\LogFiles"));
 		File outDir = new File(Thread.currentThread().getContextClassLoader().getResource("LogFiles_Results").getPath());
 		errorLog.setOutPut(outDir);
 		
 //		try {
-//			errorLog.execute();
+			errorLog.run();
 //		} catch (IOException e) {
 //			Assert.assertEquals(true, false);
 //		}
@@ -28,12 +26,10 @@ public class ExtractErrorLogTest {
 		
 	}
 	
-	@Test
+//	@Test
 	public void april() {
 		String name = "April";
-		LoggerExtracter errorLog = new LoggerExtracter();
-		File inDir = new File("C:/Users/ggyang/Desktop/AllLogger/"+name);
-		errorLog.setLogFilesDir(inDir);
+		LoggerExtracter errorLog = new LoggerExtracter(new File("C:/Users/ggyang/Desktop/AllLogger/"+name));
 		File outDir = new File("C:/Users/ggyang/Desktop/AllLogger/"+name+"_Results");
 		errorLog.setOutPut(outDir);
 		
@@ -43,21 +39,17 @@ public class ExtractErrorLogTest {
 //	@Test
 	public void march() {
 		String name = "March";
-		LoggerExtracter errorLog = new LoggerExtracter();
-		File inDir = new File("C:/Users/ggyang/Desktop/AllLogger/"+name);
-		errorLog.setLogFilesDir(inDir);
+		LoggerExtracter errorLog = new LoggerExtracter(new File("C:/Users/ggyang/Desktop/AllLogger/"+name));
 		File outDir = new File("C:/Users/ggyang/Desktop/AllLogger/"+name+"_Results");
 		errorLog.setOutPut(outDir);
 		
 //			errorLog.execute();
 	}
 	
-	@Test
+//	@Test
 	public void feb() {
 		String name = "Feb";
-		LoggerExtracter errorLog = new LoggerExtracter();
-		File inDir = new File("C:/Users/ggyang/Desktop/AllLogger/"+name);
-		errorLog.setLogFilesDir(inDir);
+		LoggerExtracter errorLog = new LoggerExtracter(new File("C:/Users/ggyang/Desktop/AllLogger/"+name));
 		File outDir = new File("C:/Users/ggyang/Desktop/AllLogger/"+name+"_Results");
 		errorLog.setOutPut(outDir);
 		

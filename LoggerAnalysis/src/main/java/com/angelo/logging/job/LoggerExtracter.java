@@ -37,12 +37,15 @@ public class LoggerExtracter implements Runnable{
 	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	private List<LoggerFile> completedFiles;
 	
+	public LoggerExtracter(File inDir) {
+		this.inDir = inDir;
+	}
+	
 	public void run() {
-		LOG.info("Running...");
+		LOG.info(LoggerExtracter.class.getSimpleName() + " is starting...");
 		LOG.info("Scanning directory: " + this.inDir.getAbsolutePath());
 		while(true) {
 			File[] files = this.inDir.listFiles();
-			LOG.info("Scan log files...");
 			LOG.info("Total Files: " + files.length);
 			
 			if(files.length > 0){
@@ -52,7 +55,7 @@ public class LoggerExtracter implements Runnable{
 			try {
 				Thread.sleep(300 * 1000);
 			} catch (InterruptedException e) {
-				LOG.error("Scan log files" + e);
+				LOG.error("thread error " + e);
 			}
 		}
 	}
@@ -61,26 +64,43 @@ public class LoggerExtracter implements Runnable{
 		completedFiles = db.getLoggerFiles();
 		
 		for (File file : files) {
+			String fileName = file.getName();
 			if(imported(file)) {
-				LOG.info("Had imported log file: " + file.getName());
-				move(file, new File(Constants.getInstance().getImportedDir()));
+				LOG.info("Had imported log file: " + fileName);
+				if(!move(file, new File(Constants.getInstance().getImportedDir()))){
+					LOG.error("Error move file({}) to imported directory.", fileName);
+				}
 				continue ;
 			}
 			
-			LOG.info("Parsing log file: " + file.getName());
-			List<ExceptionFragment> allFragments = new ArrayList<ExceptionFragment>();
+			LOG.info("Parsing log file: " + fileName);
+			List<ExceptionFragment> fragments = new ArrayList<ExceptionFragment>();
 			try {
-				allFragments.addAll(new LoggerFileReader(file).read());
+				fragments.addAll(new LoggerFileReader(file).read());
 			} catch (FileNotFoundException e) {
-				LOG.error("Logger file not found: " + e);
+				LOG.error("Logger file({}) not found: " + e, fileName);
+				continue;
 			} catch (IOException e) {
-				LOG.error("Parsing log file: " + e);
-				move(file, new File(Constants.getInstance().getErrorDir()));
+				LOG.error("Parsing log file({}): " + e, fileName);
+				if(!move(file, new File(Constants.getInstance().getErrorDir()))){
+					LOG.error("Error move file({}) to error directory.", fileName);
+				}
+				continue;
 			}
-			LOG.info("Complete parsing log file: " + file.getName());
-			move(file, new File(Constants.getInstance().getArchiveDir()));
 			
-			updateExceptionDate(allFragments);
+			updateFragmentDate(fragments);
+			LoggerFile loggerFile = getLoggerFile(file);
+			if(!db.extractLogger(loggerFile, fragments)){
+				LOG.error("Error extract logger.");
+				continue;
+			}
+			
+			if(!move(file, new File(Constants.getInstance().getArchiveDir()))){
+				LOG.error("Error move file({}) to archive directory.", fileName);
+				continue;
+			}
+			completedFiles.add(loggerFile);
+			LOG.info("Complete parsing log file({}).", fileName);
 			
 //			Reports reports = update(allFragments);
 //			
@@ -94,23 +114,21 @@ public class LoggerExtracter implements Runnable{
 //			
 //			//produce details files.
 //			new TextFileWriter(wFile, new ExceptionFragmentFormatter(allFragments).format()).print();
-			insertDB(allFragments);
-			
-			Date fileDate = null;
-			String date = null;
-			try {
-				date = file.getName().replace("cvmedhome.log.", "").trim();
-				fileDate = df.parse(date);
-			} catch (ParseException e) {
-				LOG.error(String.format("Parsing date: %s, %s", date, e));
-			}
-			
-			LoggerFile loggerFile = new LoggerFile(file.getName(), fileDate, new Date());
-			db.insert(loggerFile);
-			completedFiles.add(loggerFile);
 		}
 	}
 	
+	private LoggerFile getLoggerFile(File file) {
+		Date fileDate = null;
+		String date = null;
+		try {
+			date = file.getName().replace("cvmedhome.log.", "").trim();
+			fileDate = df.parse(date);
+		} catch (ParseException e) {
+			LOG.error(String.format("Parsing date: %s, %s", date, e));
+		}
+		return new LoggerFile(file.getName(), fileDate, new Date());
+	}
+
 	private boolean move(File file, File destDir) {
 		if(!destDir.exists()){
 			destDir.mkdirs();
@@ -172,27 +190,29 @@ public class LoggerExtracter implements Runnable{
 		return false;
 	}
 
-	private void insertDB(List<ExceptionFragment> fragments){
+	private void save(List<ExceptionFragment> fragments){
 		for (ExceptionFragment fragment: fragments) {
 			db.insert(fragment);
 		}
 	}
 	
-	private void updateExceptionDate(List<ExceptionFragment> allFragments) {
-		Pattern p = Pattern.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}");
+	private void updateFragmentDate(List<ExceptionFragment> fragments) {
+		Pattern p = Pattern
+				.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}");
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		for (ExceptionFragment exceptionFragment : allFragments) {
-			Matcher m =  p.matcher(exceptionFragment.getDetailMessages());
-			if(m.find()){
+		for (ExceptionFragment fragment : fragments) {
+			Matcher m = p.matcher(fragment.getDetailMessages());
+			if (m.find()) {
 				String dateString = m.group();
 				Date date = null;
 				try {
 					date = dateFormat.parse(dateString);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					LOG.error("fragment({}) date can not be parsed",
+							fragment.getId());
 				}
-				exceptionFragment.setDate(date);
+				fragment.setDate(date);
 			}
 		}
 	}
