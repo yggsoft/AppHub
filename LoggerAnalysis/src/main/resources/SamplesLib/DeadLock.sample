@@ -1,1 +1,0 @@
-Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Transaction (Process ID 67) was deadlocked 
