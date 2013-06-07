@@ -1,5 +1,8 @@
 package com.angelo.logging.templete;
 
+public class RegExRule implements Rule {
 
-public class RegExRule {
+	public boolean matches(String input) {
+		throw new RuntimeException("implementing ...");
+	}
 }

@@ -7,14 +7,14 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.angelo.logging.db.DBManagement;
+import com.angelo.logging.db.DataCentre;
 import com.angelo.logging.logger.ExceptionFragment;
 import com.angelo.logging.report.Reports;
 import com.angelo.logging.templete.Templete;
 
 public class IgnoreAnalyster implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(IgnoreAnalyster.class);
-	private DBManagement db = new DBManagement();
+	private DataCentre db = new DataCentre();
 
 	public void run() {
 		this.execute();
@@ -58,8 +58,8 @@ public class IgnoreAnalyster implements Runnable {
 					fragment.setAnalysisCompleted(true);
 					fragment.setMatched(true);
 					fragment.setIgnore(true);
-					db.update(fragment);
-					db.analysize(templete, fragment);
+					db.skipAnalysis(fragment);
+					db.completeAnalysis(templete, fragment);
 					break;
 				}
 			}
@@ -71,7 +71,7 @@ public class IgnoreAnalyster implements Runnable {
 			update = false;
 			
 			fragment.setMatched(true);
-			db.update(fragment);
+			db.skipAnalysis(fragment);
 		}
 		return reports;
 	}

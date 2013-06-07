@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.angelo.logging.db.DBManagement;
+import com.angelo.logging.db.DataCentre;
 import com.angelo.logging.io.LoggerFileReader;
 import com.angelo.logging.logger.ExceptionFragment;
 import com.angelo.logging.logger.LoggerFile;
@@ -33,7 +33,7 @@ public class LoggerExtracter implements Runnable{
 	private static final Logger LOG = LoggerFactory.getLogger(LoggerExtracter.class);
 	private File inDir;
 	private File outDir;
-	private DBManagement db = new DBManagement();
+	private DataCentre db = new DataCentre();
 	private DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	private List<LoggerFile> completedFiles;
 	
@@ -53,7 +53,7 @@ public class LoggerExtracter implements Runnable{
 			}
 			
 			try {
-				Thread.sleep(300 * 1000);
+				Thread.sleep(Constants.JOB_SLEEP);
 			} catch (InterruptedException e) {
 				LOG.error("thread error " + e);
 			}
@@ -92,12 +92,14 @@ public class LoggerExtracter implements Runnable{
 			LoggerFile loggerFile = getLoggerFile(file);
 			if(!db.extractLogger(loggerFile, fragments)){
 				LOG.error("Error extract logger.");
+				if(!move(file, new File(Constants.getInstance().getErrorDir()))){
+					LOG.error("Error move file({}) to error directory.", fileName);
+				}
 				continue;
 			}
 			
 			if(!move(file, new File(Constants.getInstance().getArchiveDir()))){
 				LOG.error("Error move file({}) to archive directory.", fileName);
-				continue;
 			}
 			completedFiles.add(loggerFile);
 			LOG.info("Complete parsing log file({}).", fileName);

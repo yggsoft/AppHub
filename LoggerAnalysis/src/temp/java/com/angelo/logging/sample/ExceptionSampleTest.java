@@ -19,7 +19,7 @@ public class ExceptionSampleTest {
 		temp.setRCA("Duplicate records to DB");
 		temp.setReProduceSteps("");
 		
-		System.out.println(temp.getTemplete());
+//		System.out.println(temp.getTemplete());
 	}
 
 }

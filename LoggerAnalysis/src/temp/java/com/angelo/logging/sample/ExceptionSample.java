@@ -23,6 +23,7 @@ public class ExceptionSample {
 //		content = content.replaceAll("(?m)" + Constants.LINE_SEPRATOR, ".*\n");
 		content = content.replaceAll("(?m)\\$", Matcher.quoteReplacement("\\$"));
 		content = ".*?" + content + ".*?";
-		return new Templete(content);
+//		return new Templete(content);
+		return null;
 	}
 }

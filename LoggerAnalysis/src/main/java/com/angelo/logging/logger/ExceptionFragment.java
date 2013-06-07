@@ -6,7 +6,7 @@ import java.util.List;
 import com.angelo.logging.templete.Templete;
 
 public class ExceptionFragment {
-	private int id;
+	private String id;
 	private String title;
 	private String RCA;
 	private String reproduceSteps;
@@ -18,6 +18,8 @@ public class ExceptionFragment {
 	private boolean isMatched;
 	private boolean ignore;
 	
+	private String logfileId;
+	
 	private List<Templete> templete;
 	
 	public ExceptionFragment() {
@@ -25,7 +27,6 @@ public class ExceptionFragment {
 	
 	public ExceptionFragment(int index, String RCA, String reproduceSteps,
 			String rootException, String context, String detailMessages) {
-		this.id = index;
 		this.RCA = RCA;
 		this.reproduceSteps = reproduceSteps;
 		this.rootException = rootException;
@@ -33,12 +34,13 @@ public class ExceptionFragment {
 		this.detailMessages = detailMessages;
 	}
 	
+	
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -136,4 +138,14 @@ public class ExceptionFragment {
 	public void setIgnore(boolean ignore) {
 		this.ignore = ignore;
 	}
+
+	public String getLogfileId() {
+		return logfileId;
+	}
+
+	public void setLogfileId(String logfileId) {
+		this.logfileId = logfileId;
+	}
+	
+	
 }

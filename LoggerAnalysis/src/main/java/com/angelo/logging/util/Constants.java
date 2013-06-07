@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Constants {
 	private static final Logger LOG = LoggerFactory.getLogger(Constants.class);
 	public static final String LINE_SEPRATOR = System.getProperty("line.separator");
+	public static final int JOB_SLEEP = 30;
 	
 	private final int rowValitility;
 	
@@ -19,7 +20,7 @@ public class Constants {
 	private static Constants constants = new Constants();
 	private final String inDir;
 	private final String outLoggerFileDir;
-	private final boolean outLoggerFileEnabled;
+	private final boolean reportFileEnabled;
 	private final String archiveDir;
 	private final String importedDir;
 	private final String errorDir;
@@ -37,11 +38,10 @@ public class Constants {
 		importedDir = properties.get("logger.imported.dir").toString();
 		errorDir = properties.get("logger.error.dir").toString();
 		
-		outLoggerFileEnabled = Boolean.valueOf(properties.get("logger.loggerfile.enabled").toString()).booleanValue();
+		reportFileEnabled = Boolean.valueOf(properties.get("logger.report.file.enabled").toString()).booleanValue();
 		outLoggerFileDir = properties.get("logger.out.dir").toString();
 		h2url = properties.get("db.url").toString();
 		rowValitility = Integer.valueOf(properties.get("row.volatility").toString()).intValue();
-		
 	}
 	
 	public static Constants getInstance(){
@@ -64,8 +64,8 @@ public class Constants {
 		return outLoggerFileDir;
 	}
 
-	public boolean isOutLoggerFileEnabled() {
-		return outLoggerFileEnabled;
+	public boolean isReportFileEnabled() {
+		return reportFileEnabled;
 	}
 
 	public String getArchiveDir() {
