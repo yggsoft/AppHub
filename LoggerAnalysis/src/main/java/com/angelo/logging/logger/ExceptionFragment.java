@@ -7,17 +7,11 @@ import com.angelo.logging.templete.Templete;
 
 public class ExceptionFragment {
 	private String id;
-	private String title;
-	private String RCA;
-	private String reproduceSteps;
-	private String rootException;
 	private String context;
 	private String detailMessages;
 	private Date date;
 	private boolean analysisCompleted;
 	private boolean isMatched;
-	private boolean ignore;
-	
 	private String logfileId;
 	
 	private List<Templete> templete;
@@ -25,16 +19,11 @@ public class ExceptionFragment {
 	public ExceptionFragment() {
 	}
 	
-	public ExceptionFragment(int index, String RCA, String reproduceSteps,
-			String rootException, String context, String detailMessages) {
-		this.RCA = RCA;
-		this.reproduceSteps = reproduceSteps;
-		this.rootException = rootException;
+	public ExceptionFragment(String context, String detailMessages) {
 		this.context = context;
 		this.detailMessages = detailMessages;
 	}
-	
-	
+
 
 	public String getId() {
 		return id;
@@ -42,30 +31,6 @@ public class ExceptionFragment {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getRCA() {
-		return RCA;
-	}
-
-	public void setRCA(String rCA) {
-		RCA = rCA;
-	}
-
-	public String getReproduceSteps() {
-		return reproduceSteps;
-	}
-
-	public void setReproduceSteps(String reproduceSteps) {
-		this.reproduceSteps = reproduceSteps;
-	}
-
-	public String getRootException() {
-		return rootException;
-	}
-
-	public void setRootException(String rootException) {
-		this.rootException = rootException;
 	}
 
 	public String getDetailMessages() {
@@ -85,17 +50,6 @@ public class ExceptionFragment {
 	public void setDetailMessages(String detailMessages) {
 		this.detailMessages = detailMessages;
 	}
-
-
-	public String getTitle() {
-		return title;
-	}
-
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
 
 	public boolean isAnalysisCompleted() {
 		return analysisCompleted;
@@ -129,14 +83,6 @@ public class ExceptionFragment {
 
 	public void setMatched(boolean isMatched) {
 		this.isMatched = isMatched;
-	}
-
-	public boolean isIgnore() {
-		return ignore;
-	}
-
-	public void setIgnore(boolean ignore) {
-		this.ignore = ignore;
 	}
 
 	public String getLogfileId() {

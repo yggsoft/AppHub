@@ -23,9 +23,6 @@ import com.angelo.logging.db.DataCentre;
 import com.angelo.logging.io.LoggerFileReader;
 import com.angelo.logging.logger.ExceptionFragment;
 import com.angelo.logging.logger.LoggerFile;
-import com.angelo.logging.report.Reports;
-import com.angelo.logging.templete.Templete;
-import com.angelo.logging.templete.Templetes;
 import com.angelo.logging.util.Constants;
 
 
@@ -42,7 +39,7 @@ public class LoggerExtracter implements Runnable{
 	}
 	
 	public void run() {
-		LOG.info(LoggerExtracter.class.getSimpleName() + " is starting...");
+		LOG.info(LoggerExtracter.class.getSimpleName() + " is running...");
 		LOG.info("Scanning directory: " + this.inDir.getAbsolutePath());
 		while(true) {
 			File[] files = this.inDir.listFiles();
@@ -192,12 +189,6 @@ public class LoggerExtracter implements Runnable{
 		return false;
 	}
 
-	private void save(List<ExceptionFragment> fragments){
-		for (ExceptionFragment fragment: fragments) {
-			db.insert(fragment);
-		}
-	}
-	
 	private void updateFragmentDate(List<ExceptionFragment> fragments) {
 		Pattern p = Pattern
 				.compile("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}");
@@ -217,38 +208,6 @@ public class LoggerExtracter implements Runnable{
 				fragment.setDate(date);
 			}
 		}
-	}
-
-	private Reports update(List<ExceptionFragment> allFragments) {
-		List<Templete> templetes = Templetes.getInstance().getTempletes();
-		Reports reports = new Reports();
-		reports.report("Matching error records.");
-		reports.report("Error records size: " + allFragments.size());
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		boolean update = false;
-		for (int i = 0; i < allFragments.size(); i++) {
-			ExceptionFragment fragment = allFragments.get(i);
-			for (Templete templete : templetes) {
-				if(templete.matches(fragment)){
-					fragment.setTitle(templete.getTitle());
-					fragment.setRCA(templete.getRCA());
-					fragment.setReproduceSteps(templete.getReProduceSteps());
-					update = true;
-					reports.report(String.format("Deal with record: %s (%s), title: %s.", 
-							fragment.getId(), dateFormat.format(fragment.getDate()), fragment.getTitle()));
-					// to 
-					break;
-				}
-			}
-			
-			if(!update){
-				reports.report(fragment.getId() + " is unknown.");
-			}
-			
-			update = false;
-		}
-		return reports;
 	}
 
 	public void setLogFilesDir(File inDir) {

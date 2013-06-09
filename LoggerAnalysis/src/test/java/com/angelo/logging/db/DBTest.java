@@ -53,7 +53,7 @@ public class DBTest {
 		bulidTemplete("Parsing Message error", "Parsing Message error", "", "", false, "javax.mail.MessagingException: Exception getting text content;");
 	}
 
-	@Test
+//	@Test
 	public void ingoreTemplete(){
 		bulidTemplete("Ignore templete 1", "Component Index does not contain embedded component 'php'", "", "", true, "embedded component 'php'");
 		bulidTemplete("Ignore templete 2", "Component Index does not contain embedded component 'jsp'", "", "", true, "embedded component 'jsp'");

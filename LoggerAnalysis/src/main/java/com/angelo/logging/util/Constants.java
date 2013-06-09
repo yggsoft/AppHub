@@ -9,13 +9,12 @@ import org.slf4j.LoggerFactory;
 public class Constants {
 	private static final Logger LOG = LoggerFactory.getLogger(Constants.class);
 	public static final String LINE_SEPRATOR = System.getProperty("line.separator");
-	public static final int JOB_SLEEP = 30;
+	public static final int JOB_SLEEP = 30 * 1000;
+	public static final int DB_RESULTSET_SIZE = 100;
 	
 	private final int rowValitility;
 	
 	private final String h2url;
-	
-	private final int ANALYSIS_BATCH_SIZE = 100;
 	
 	private static Constants constants = new Constants();
 	private final String inDir;

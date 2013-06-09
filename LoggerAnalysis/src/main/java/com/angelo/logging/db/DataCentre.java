@@ -14,7 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.angelo.logging.io.TextFileReader;
-import com.angelo.logging.job.LoggerExtracter;
+import com.angelo.logging.job.RetryAnalyster;
 import com.angelo.logging.logger.ExceptionFragment;
 import com.angelo.logging.logger.Job;
 import com.angelo.logging.logger.LoggerFile;
@@ -25,10 +25,7 @@ import com.angelo.logging.util.Constants;
 
 public class DataCentre {
 	private static final Logger LOG = LoggerFactory
-			.getLogger(LoggerExtracter.class);
-	private static final String INSERT_EXCEPTIONFRAGMENT_SQL = "insert into ExceptionFragment"
-			+ "(title, rca, reproduceSteps, rootException, context, detailMessages, date, analysisCompleted)"
-			+ "values(?,?,?,?,?,?,?,?)";
+			.getLogger(DataCentre.class);
 
 	static {
 		try {
@@ -57,7 +54,7 @@ public class DataCentre {
 		Statement st = null;
 		try {
 			st = connection.createStatement();
-			st.execute(new TextFileReader("initDatabase.sql").read());
+			st.execute(new TextFileReader("resources/scripts/initDatabase.sql").read());
 		} catch (SQLException e) {
 			LOG.error("database error " + e);
 			return false;
@@ -67,67 +64,6 @@ public class DataCentre {
 		return true;
 	}
 
-	public void insert(ExceptionFragment fragment) {
-		Connection connection = getConnection();
-		PreparedStatement pst = null;
-		try {
-			pst = connection.prepareStatement(INSERT_EXCEPTIONFRAGMENT_SQL);
-
-			// pst.setInt(1, fragment.getId());
-			pst.setString(1, fragment.getTitle());
-			pst.setString(2, fragment.getRCA());
-			pst.setString(3, fragment.getReproduceSteps());
-			pst.setString(4, fragment.getRootException());
-			pst.setString(5, fragment.getContext());
-			pst.setString(6, fragment.getDetailMessages());
-
-			pst.setTimestamp(7, fragment.getDate() == null ? null
-					: new java.sql.Timestamp(fragment.getDate().getTime()));
-
-			pst.setBoolean(8, fragment.isAnalysisCompleted());
-
-			pst.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(connection);
-		}
-
-	}
-
-	public List<ExceptionFragment> select(String sql) {
-		Connection connection = getConnection();
-		List<ExceptionFragment> fragments = new ArrayList<ExceptionFragment>();
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-		try {
-			pst = connection.prepareStatement(sql);
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				ExceptionFragment frag = new ExceptionFragment();
-				frag.setTitle(rs.getString("title"));
-				frag.setRCA(rs.getString("rca"));
-				frag.setReproduceSteps(rs.getString("reproduceSteps"));
-				frag.setRootException(rs.getString("rootException"));
-				frag.setContext(rs.getString("context"));
-				frag.setDetailMessages(rs.getString("detailMessages"));
-				frag.setAnalysisCompleted(rs.getBoolean("analysisCompleted"));
-
-				fragments.add(frag);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(connection);
-		}
-		return fragments;
-	}
-
-
-	public List<ExceptionFragment> selectNotMatchAndIgnoreEx() {
-		return select("SELECT TOP 100 id, title, rca, reproduceSteps, rootException, context, detailMessages, date, analysisCompleted FROM EXCEPTIONFRAGMENT AS F WHERE F.ISMATCHED = TRUE AND F.ANALYSISCOMPLETED = FALSE AND F.IGNORE = FALSE");
-	}
 
 	/**
 	 * gets templetes which ExceptionFragment did not match. 
@@ -136,10 +72,6 @@ public class DataCentre {
 	 */
 	public List<Templete> getNewTempletes(ExceptionFragment fragment) {
 		return getTemplates();
-	}
-
-	private String generateId() {
-		return System.currentTimeMillis() + "";
 	}
 
 	private java.sql.Timestamp getTimeStamp(Date date) {
@@ -176,7 +108,7 @@ public class DataCentre {
 				rs.close();
 			}
 		} catch (SQLException e) {
-			exceptionHandler(e);
+			LOG.error("database " + e);
 			throw new DataAccessException();
 		} finally {
 			try {
@@ -184,7 +116,7 @@ public class DataCentre {
 					st.close();
 				}
 			} catch (SQLException e) {
-				exceptionHandler(e);
+				LOG.error("database " + e);
 				throw new DataAccessException();
 			} finally {
 				try {
@@ -192,19 +124,15 @@ public class DataCentre {
 						conn.close();
 					}
 				} catch (SQLException e) {
-					exceptionHandler(e);
+					LOG.error("database " + e);
 					throw new DataAccessException();
 				}
 			}
 		}
 	}
 
-	private void exceptionHandler(SQLException e) {
-		LOG.error("database " + e);
-	}
-	
 	public List<ExceptionFragment> getUnAnalysizedFragments() {
-		return getFragments("SELECT  ID, LOGFILEID, CONTEXT, DETAILMESSAGES, DATE FROM EXCEPTIONFRAGMENT E WHERE E.ISMATCHED = FALSE AND E.ANALYSISCOMPLETED = FALSE");
+		return getFragments("SELECT TOP "+Constants.DB_RESULTSET_SIZE+" ID, LOGFILEID, CONTEXT, DETAILMESSAGES, DATE FROM EXCEPTIONFRAGMENT E WHERE E.ISMATCHED = FALSE AND E.ANALYSISCOMPLETED = FALSE");
 	}
 
 	public List<ExceptionFragment> getFragments(String fragmentSql) {
@@ -237,7 +165,7 @@ public class DataCentre {
 		Connection connection = getConnection();
 		TransactionMgr.beginTansction(connection);
 
-		String loggerFileId = generateId();
+		String loggerFileId = IDGenerator.generateId();
 		String logFileSql = "INSERT INTO LOGGERFILE(ID, FILENAME, WHICHDAY, IMPORTDAY) VALUES(?,?,?,?);";
 		String fragmentSql = "INSERT INTO EXCEPTIONFRAGMENT(ID, CONTEXT, DETAILMESSAGES, DATE, LOGFILEID) VALUES(?,?,?,?,?)";
 
@@ -247,7 +175,7 @@ public class DataCentre {
 					getTimeStamp(loggerFile.getWhichDay()),
 					getTimeStamp(loggerFile.getImportDay()));
 			for (ExceptionFragment fragment : fragments) {
-				String id = generateId();
+				String id = IDGenerator.generateId();
 				update(connection, fragmentSql, id, fragment.getContext(),
 						fragment.getDetailMessages(),
 						getTimeStamp(fragment.getDate()), loggerFileId);
@@ -293,11 +221,9 @@ public class DataCentre {
 		
 		TransactionMgr.beginTansction(connection);
 		String fragmentSql = "UPDATE EXCEPTIONFRAGMENT SET ANALYSISCOMPLETED = FALSE, ISMATCHED = TRUE";
-//		String jobSql = "INSERT INTO JOBSTATUS(FRAGMENTID) VALUES(?)";
 
 		try {
 			update(connection, fragmentSql);
-//			update(connection, jobSql, fragment.getId());
 		} catch (SQLException e) {
 			LOG.error("" + e);
 			TransactionMgr.rollbackAndClose(connection);
@@ -350,8 +276,8 @@ public class DataCentre {
 			rs = query(connection, ruleSql, templete.getId());
 			while (rs.next()) {
 				StringRule rule = new StringRule();
-				rule.setId(rs.getInt("ID"));
-				rule.setTempleteId(rs.getInt("TEMPLETEID"));
+				rule.setId(rs.getString("ID"));
+				rule.setTempleteId(rs.getString("TEMPLETEID"));
 				rule.setFeature(rs.getString("FEATURE"));
 				rules.add(rule);
 			}
@@ -428,7 +354,7 @@ public class DataCentre {
 		String sql = "INSERT INTO TEMPLETE(ID, NAME, CATEGORY, TITLE, RCA, REPRODUCESTEPS, PRIORITY, TIMESTAMP, IGNORE) VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
 			update(connection, sql, 
-					generateId(), templete.getName(), templete.getCategory(), templete.getTitle(),
+					IDGenerator.generateId(), templete.getName(), templete.getCategory(), templete.getTitle(),
 					templete.getRCA(), templete.getReProduceSteps(), templete.getPriority(), 
 					getTimeStamp(templete.getTimestamp()), templete.isIgnore());
 			
@@ -446,7 +372,7 @@ public class DataCentre {
 		TransactionMgr.beginTansction(connection);
 		String sql = "INSERT INTO TEMPLETE(ID, NAME, CATEGORY, TITLE, RCA, REPRODUCESTEPS, PRIORITY, TIMESTAMP, IGNORE) VALUES(?,?,?,?,?,?,?,?,?)";
 		String ruleSql = "INSERT INTO STRINGRULE(ID, TEMPLETEID, FEATURE) VALUES(?,?,?)";
-		String id = generateId();
+		String id = IDGenerator.generateId();
 		try {
 			update(connection, sql, 
 					id, templete.getName(), templete.getCategory(), templete.getTitle(),
@@ -454,7 +380,7 @@ public class DataCentre {
 					getTimeStamp(templete.getTimestamp()), templete.isIgnore());
 			
 			update(connection, ruleSql, 
-					generateId(), id, rule.getFeature());
+					IDGenerator.generateId(), id, rule.getFeature());
 		} catch (SQLException e) {
 			LOG.error("" + e);
 			TransactionMgr.rollbackAndClose(connection);
@@ -476,7 +402,7 @@ public class DataCentre {
 
 	public List<ExceptionFragment> getRetryAnalysizedFragments(Job job) {
 		Connection connection = getConnection();
-		String sql = "SELECT  E.ID, E.LOGFILEID, E.CONTEXT, E.DETAILMESSAGES, E.DATE FROM EXCEPTIONFRAGMENT E LEFT JOIN JOBSTATUS JS ON E.ID = JS.FRAGMENTID WHERE E.ISMATCHED = FALSE AND E.ANALYSISCOMPLETED = FALSE AND JS.JOBID IS NULL";
+		String sql = "SELECT  TOP "+Constants.DB_RESULTSET_SIZE+" E.ID, E.LOGFILEID, E.CONTEXT, E.DETAILMESSAGES, E.DATE FROM EXCEPTIONFRAGMENT E LEFT JOIN JOBSTATUS JS ON E.ID = JS.FRAGMENTID WHERE E.ISMATCHED = TRUE AND E.ANALYSISCOMPLETED = FALSE AND JS.JOBID IS NULL";
 		ResultSet rs = null;
 		try {
 			rs = query(connection, sql);
@@ -488,7 +414,7 @@ public class DataCentre {
 		}finally {
 			free(rs, null, connection);
 		}
-		return getFragments("SELECT E.ID, E.LOGFILEID, E.CONTEXT, E.DETAILMESSAGES, E.DATE FROM EXCEPTIONFRAGMENT E INNER JOIN JOBSTATUS JS ON E.ID = JS.FRAGMENTID INNER JOIN JOB J ON JS.JOBID = J.ID WHERE JS.TIMES < J.CURRENTTIMES");
+		return getFragments("SELECT TOP "+Constants.DB_RESULTSET_SIZE+" E.ID, E.LOGFILEID, E.CONTEXT, E.DETAILMESSAGES, E.DATE FROM EXCEPTIONFRAGMENT E INNER JOIN JOBSTATUS JS ON E.ID = JS.FRAGMENTID INNER JOIN JOB J ON JS.JOBID = J.ID WHERE JS.TIMES <= J.CURRENTTIMES AND JS.STATUS = 0");
 	}
 
 	public Job nextRetry(Job job) {
@@ -529,7 +455,7 @@ public class DataCentre {
 		Connection connection = getConnection();
 		ResultSet rs = null;
 		try {
-			update(connection, "INSERT INTO JOB(ID, JOBNAME, CURRENTTIMES) VALUES(?,?,?)", generateId(), jobName, 0);
+			update(connection, "INSERT INTO JOB(ID, JOBNAME, CURRENTTIMES) VALUES(?,?,?)", IDGenerator.generateId(), jobName, 0);
 		} catch (SQLException e) {
 			LOG.error("" + e);
 			return false;
@@ -545,4 +471,71 @@ public class DataCentre {
 		}
 		return null;
 	}
+
+	public boolean completeAnalysis(Templete templete,
+			ExceptionFragment fragment, Job job) {
+		
+		if(job == null) return completeAnalysis(templete, fragment) ;
+		
+		if(job.getName().equalsIgnoreCase(RetryAnalyster.class.getSimpleName())){
+			fragment.setAnalysisCompleted(true);
+			fragment.setMatched(true);
+			return retryAnalysize(templete, fragment, job);
+		}
+		
+		return false;
+	}
+	
+	private boolean retryAnalysize(Templete templete, ExceptionFragment fragment, Job job) {
+		Connection connection = getConnection();
+		TransactionMgr.beginTansction(connection);
+
+		String relationSql = "INSERT INTO TEMPLATEEXCEPTIONFRAGMENT(TEMPID, FRAGMENTID) VALUES(?,?)";
+		String fragmentSql = "UPDATE EXCEPTIONFRAGMENT SET ISMATCHED = ?, ANALYSISCOMPLETED = ? WHERE ID = ?";
+		String jobStatusSql = "UPDATE JOBSTATUS SET STATUS = 1 WHERE JOBID = ? AND FRAGMENTID = ?";
+
+		try {
+			update(connection, relationSql, templete.getId(), fragment.getId());
+			update(connection, fragmentSql, fragment.isMatched(),
+					fragment.isAnalysisCompleted(), fragment.getId());
+			
+			update(connection, jobStatusSql, job.getId(), fragment.getId());
+		} catch (SQLException e) {
+			LOG.error("" + e);
+			TransactionMgr.rollbackAndClose(connection);
+			return false;
+		}
+		TransactionMgr.commitAndClose(connection);
+		return true;
+	}
+
+	public boolean skipAnalysis(ExceptionFragment fragment, Job job) {
+		
+		if(job == null) return skipAnalysis(fragment);
+		
+		if(job.getName().equalsIgnoreCase(RetryAnalyster.class.getSimpleName())){
+			return retrySkipAnalysis(fragment, job);
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean retrySkipAnalysis(ExceptionFragment fragment, Job job) {
+		Connection connection = getConnection();
+		
+		TransactionMgr.beginTansction(connection);
+		String jobSql = "UPDATE JOBSTATUS SET TIMES = TIMES  + 1 WHERE JOBID = ? AND FRAGMENTID = ?";
+
+		try {
+			update(connection, jobSql, job.getId(), fragment.getId());
+		} catch (SQLException e) {
+			LOG.error("" + e);
+			TransactionMgr.rollbackAndClose(connection);
+			return false;
+		}
+		TransactionMgr.commitAndClose(connection);
+		return true;
+	}
+	
 }

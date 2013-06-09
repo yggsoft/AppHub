@@ -15,6 +15,7 @@ import com.angelo.logging.util.Constants;
 public class RetryAnalyster implements Runnable {
 	private static final Logger LOG = LoggerFactory.getLogger(RetryAnalyster.class);
 	private DataCentre db = new DataCentre();
+	private Job job;
 	private AnalysterService analysterService = new AnalysterService();
 
 	public void run() {
@@ -22,9 +23,9 @@ public class RetryAnalyster implements Runnable {
 	}
 
 	public void execute() {
-		LOG.info(RetryAnalyster.class.getSimpleName() + " is starting...");
+		LOG.info(RetryAnalyster.class.getSimpleName() + " is running...");
 		List<ExceptionFragment> fragments = null;
-		Job job = db.getRetryJob(RetryAnalyster.class.getSimpleName());
+		job = db.getRetryJob(RetryAnalyster.class.getSimpleName());
 		if(job == null) {
 			job = db.initRestryJob(RetryAnalyster.class.getSimpleName());
 		}
@@ -50,13 +51,15 @@ public class RetryAnalyster implements Runnable {
 
 	private Reports update(List<ExceptionFragment> fragments) {
 		Reports reports = new Reports();
-		reports.report("Analysizing error records.");
+		reports.report("Analysizing records.");
 		reports.report("Records size: " + fragments.size());
+		
+		List<Templete> templetes = db.getNewTempletes(null);
 		
 		for (int i = 0; i < fragments.size(); i++) {
 			ExceptionFragment fragment = fragments.get(i);
-			List<Templete> templetes = db.getNewTempletes(fragment);
-			analysterService.analysize(reports, templetes, fragment);
+//			List<Templete> templetes = db.getNewTempletes(fragment);
+			analysterService.analysize(reports, templetes, fragment, job);
 		}
 		return reports;
 	}

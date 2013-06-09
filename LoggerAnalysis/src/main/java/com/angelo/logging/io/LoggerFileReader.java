@@ -79,7 +79,6 @@ public class LoggerFileReader {
 		
 		boolean begin = false;
 		boolean fragmentCompleted = false;
-		int count = 1;
 		String line = null;
 		
 		StringBuffer errorFragment = new StringBuffer();
@@ -109,12 +108,11 @@ public class LoggerFileReader {
 				if (fragmentCompleted) {
 					String context = rowCache.clear();
 					
-					ExceptionFragment fragment = new ExceptionFragment(count, "", "", "", context, errorFragment.toString());
+					ExceptionFragment fragment = new ExceptionFragment(context, errorFragment.toString());
 					fragments.add(fragment);
 					
 					errorFragment = new StringBuffer();
 					fragmentCompleted = false;
-					count++;
 				}
 			}
 		} catch (IOException e) {

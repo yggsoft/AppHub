@@ -9,4 +9,4 @@ goto comments
 	git push
 :comments
 
-java -classpath ../lib/*; com.angelo.App init
+java -classpath ../lib/*;  -Xmx512m com.angelo.App init

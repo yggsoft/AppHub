@@ -23,7 +23,7 @@ public class LoggerAnalyster implements Runnable{
 	}
 
 	public void execute() {
-		LOG.info(LoggerAnalyster.class.getSimpleName() + " is starting...");
+		LOG.info(LoggerAnalyster.class.getSimpleName() + " is running...");
 		List<ExceptionFragment> fragments = null;
 		while (true) {
 			fragments = db.getUnAnalysizedFragments();
@@ -41,7 +41,7 @@ public class LoggerAnalyster implements Runnable{
 
 	private Reports update(List<ExceptionFragment> fragments) {
 		Reports reports = new Reports();
-		reports.report("Analysizing error records.");
+		reports.report("Analysizing records.");
 		reports.report("Records size: " + fragments.size());
 		
 		List<Templete> templetes = Templetes.getInstance().getTempletes();

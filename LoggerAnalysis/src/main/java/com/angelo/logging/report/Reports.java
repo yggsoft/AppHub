@@ -1,5 +1,6 @@
 package com.angelo.logging.report;
 
+import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,10 @@ public class Reports {
 	}
 
 	public void report(String msg) {
+		report(msg, Level.INFO);
+	}
+	
+	public void report(String msg, Level level) {
 		LOG.info(msg);
 		messages.append(msg);
 		messages.append(Constants.LINE_SEPRATOR);

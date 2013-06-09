@@ -1,8 +1,8 @@
 package com.angelo.logging.templete;
 
 public class StringRule implements Rule {
-	private int id;
-	private int templeteId;
+	private String id;
+	private String templeteId;
 	private String feature;
 	
 	public StringRule() {
@@ -12,14 +12,22 @@ public class StringRule implements Rule {
 		this.feature = feature;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	
-	public void setId(int id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
-	
+
+	public String getTempleteId() {
+		return templeteId;
+	}
+
+	public void setTempleteId(String templeteId) {
+		this.templeteId = templeteId;
+	}
+
 	public String getFeature() {
 		return feature;
 	}
@@ -28,14 +36,6 @@ public class StringRule implements Rule {
 		this.feature = feature;
 	}
 	
-	public int getTempleteId() {
-		return templeteId;
-	}
-
-	public void setTempleteId(int templeteId) {
-		this.templeteId = templeteId;
-	}
-
 	public boolean matches(String input) {
 		if(feature == null && feature.length() == 0 ){
 			return false;

@@ -3,7 +3,7 @@ package com.angelo.logging.logger;
 import java.util.Date;
 
 public class LoggerFile {
-	private int id;
+	private String id;
 	private String fileName;
 	private Date whichDay;
 	private Date importDay;
@@ -18,11 +18,11 @@ public class LoggerFile {
 		this.importDay = importDay;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
