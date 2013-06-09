@@ -26,7 +26,11 @@ import com.angelo.logging.util.Constants;
 public class DataCentre {
 	private static final Logger LOG = LoggerFactory
 			.getLogger(DataCentre.class);
-
+	
+	private String url = Constants.getInstance().getH2url();
+	private String userName = "sa";
+	private String password = "";
+	
 	static {
 		try {
 			Class.forName("org.h2.Driver");
@@ -36,12 +40,24 @@ public class DataCentre {
 		}
 	}
 
+	public DataCentre() {
+	}
+	
+	public DataCentre(String url, String userName, String password) {
+		this.url = url;
+		this.userName = userName;
+		this.password = password;
+	}
+
 	public Connection getConnection() {
+		return getConnection(url, userName, password);
+	}
+	
+	public Connection getConnection(String url, String userName, String password) {
 		Connection conn = null;
 		try {
-			conn = DriverManager.getConnection(Constants.getInstance()
-					.getH2url(), "sa", "");
-
+			conn = DriverManager.getConnection(url, userName, password);
+			
 		} catch (SQLException e) {
 			LOG.error("database connection " + e);
 			throw new DataAccessException(e);
@@ -220,10 +236,10 @@ public class DataCentre {
 		Connection connection = getConnection();
 		
 		TransactionMgr.beginTansction(connection);
-		String fragmentSql = "UPDATE EXCEPTIONFRAGMENT SET ANALYSISCOMPLETED = FALSE, ISMATCHED = TRUE";
+		String fragmentSql = "UPDATE EXCEPTIONFRAGMENT SET ANALYSISCOMPLETED = FALSE, ISMATCHED = TRUE WHERE ID = ?";
 
 		try {
-			update(connection, fragmentSql);
+			update(connection, fragmentSql, fragment.getId());
 		} catch (SQLException e) {
 			LOG.error("" + e);
 			TransactionMgr.rollbackAndClose(connection);

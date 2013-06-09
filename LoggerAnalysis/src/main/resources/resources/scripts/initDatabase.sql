@@ -60,9 +60,10 @@ create table StringRule(
 	feature VARCHAR(5000)
 );
 
-DROP TABLE IF EXISTS TempleteMatchStatus;
+DROP TABLE IF EXISTS AnalysisStatus;
 create table TempleteMatchStatus(
 	id VARCHAR(100) PRIMARY KEY AUTO_INCREMENT,
 	fragmentId VARCHAR(100),
 	newestTempleteDate TIMESTAMP
 );
+-- this is for improving performance.

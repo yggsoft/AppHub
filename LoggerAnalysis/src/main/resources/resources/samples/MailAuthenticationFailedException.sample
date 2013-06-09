@@ -1,2 +1,0 @@
-javax.mail.AuthenticationFailedException: EOF on socket
-	at com.sun.mail.pop3.POP3Store.protocolConnect(POP3Store.java:174)

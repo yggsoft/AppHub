@@ -13,7 +13,7 @@ public class App {
 
 	    StartH2.main(new String[]{"-tcpAllowOthers"});
 		
-		if(args.length > 0 && args[0].equalsIgnoreCase("init")){
+		if(args != null && args.length > 0 && args[0].equalsIgnoreCase("init")){
 			InitializeDatabase.main(null);
 			ImportTempletes.main(null);
 		}
@@ -29,6 +29,6 @@ public class App {
 		
 		extractThread.start();
 		analysisThread.start();
-//		retryThread.start();
+		retryThread.start();
 	}
 }
